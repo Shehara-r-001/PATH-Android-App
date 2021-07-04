@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">PATH_02</string>
+
+    <string name="catg01">Arts n Crafts</string>
+
+    <string name="categories">What You Do?</string>
+    <string-array name="category_array">
+        <item>Arts n Crafts</item>
+        <item>Beauty</item>
+        <item>Decorations</item>
+        <item>Foods</item>
+    </string-array>
 </resources>

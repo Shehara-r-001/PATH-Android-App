@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".User_Profile"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/prof_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/prof_page_bg_yellow">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/prof_pic_card"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="100dp"
+            android:layout_centerInParent="true">
+
+        <ImageView
+            android:id="@+id/user_prof_image"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/path_logo_splash"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/prof_page_fullname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shehara Ranathisara"
+            android:layout_below="@+id/prof_pic_card"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/prof_page_uname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shehara_r"
+            android:layout_below="@+id/prof_page_fullname"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/path_prof"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PATH"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:background="@drawable/prof_page_bg_yellow"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/find_prof"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="FIND"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:background="@drawable/prof_page_bg_yellow"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+        <ScrollView
+            android:id="@+id/images_collection"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:fillViewport="true"></ScrollView></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:padding="5dp">
+        <TextView
+            android:id="@+id/update_prof"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="UPDATE"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:background="@drawable/prof_page_bg_yellow"
+            android:layout_marginTop="10dp"/>
+        <TextView
+            android:id="@+id/add_prof"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ADD"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:background="@drawable/prof_page_bg_yellow"
+            android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
