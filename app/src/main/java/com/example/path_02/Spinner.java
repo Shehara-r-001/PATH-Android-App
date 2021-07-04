@@ -3,7 +3,7 @@ package com.example.path_02;
 import android.view.View;
 import android.widget.AdapterView;
 
-public class Spinner extends com.example.path.User_Register implements AdapterView.OnItemSelectedListener {
+public class Spinner extends User_Register implements AdapterView.OnItemSelectedListener {
 
 
     @Override

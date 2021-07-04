@@ -24,7 +24,7 @@ public class User_Register extends AppCompatActivity {
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_act = new Intent(User_Register.this, com.example.path.User_Profile.class);
+                Intent next_act = new Intent(User_Register.this, User_Profile.class);
                 startActivity(next_act);
             }
         });
@@ -32,7 +32,7 @@ public class User_Register extends AppCompatActivity {
         to_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_actv = new Intent(User_Register.this, com.example.path.Login.class);
+                Intent next_actv = new Intent(User_Register.this, Login.class);
                 startActivity(next_actv);
             }
         });

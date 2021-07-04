@@ -34,14 +34,14 @@
         android:layout_marginBottom="104dp"
         android:fontFamily="@font/almendra_display"
         android:text="WELCOME"
-        android:textColor="@color/black"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo_for_splash"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
