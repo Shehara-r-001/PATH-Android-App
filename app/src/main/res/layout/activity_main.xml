@@ -71,6 +71,7 @@
             android:gravity="center"
             android:paddingLeft="30dp"
             android:text="Want to find Creators..?"
+            android:fontFamily="@font/alegreya"
             android:textColor="@color/black"
             android:textSize="20sp"></TextView>
 
