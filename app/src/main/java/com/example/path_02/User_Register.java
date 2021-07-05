@@ -11,7 +11,12 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 public class User_Register extends AppCompatActivity {
+
+    TextInputLayout reg_Fname, reg_Uname, reg_email, reg_Pnum, reg_pword, reg_Rpword;
+    Button reg_btn, to_login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,15 +25,23 @@ public class User_Register extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.register);
 
-        Button reg_btn = (Button) findViewById(R.id.reg_btn);
+        reg_Fname = findViewById(R.id.signup_fullname);
+        reg_Uname = findViewById(R.id.signup_username);
+        reg_email = findViewById(R.id.signup_email);
+        reg_Pnum = findViewById(R.id.signup_contact);
+        reg_pword = findViewById(R.id.signup_password);
+        reg_Rpword = findViewById(R.id.signup_retype_password);
+
+        reg_btn = (Button) findViewById(R.id.reg_btn);
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_act = new Intent(User_Register.this, User_Profile.class);
-                startActivity(next_act);
+
+//                Intent next_act = new Intent(User_Register.this, User_Profile.class);
+//                startActivity(next_act);
             }
         });
-        Button to_login = (Button) findViewById(R.id.to_login_page);
+        to_login = (Button) findViewById(R.id.to_login_page);
         to_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
