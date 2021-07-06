@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".User_Profile_Vistor_View"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/prof_layout_visitor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@drawable/prof_page_bg_yellow">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/prof_pic_card_inVisitor"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:cardCornerRadius="100dp"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/user_prof_image_inVisitor"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/path_logo_splash"/>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/prof_page_fullname_inVisitor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shehara Ranathisara"
+            android:layout_below="@+id/prof_pic_card_inVisitor"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:paddingTop="10dp"/>
+
+        <TextView
+            android:id="@+id/prof_page_uname_inVisitor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Shehara_r"
+            android:layout_below="@+id/prof_page_fullname_inVisitor"
+            android:layout_centerHorizontal="true"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>
+
+
+    </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:padding="5dp">
+            <TextView
+                android:id="@+id/path_prof_inVisitor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="PATH"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:fontFamily="@font/alegreya"
+                android:textColor="@color/black"
+                android:background="@drawable/prof_page_bg_yellow"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/find_prof_inVisitor"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Photos"
+                android:textAlignment="center"
+                android:textSize="30sp"
+                android:fontFamily="@font/alegreya"
+                android:textColor="@color/black"
+                android:background="@drawable/prof_page_bg_yellow"
+                android:layout_marginTop="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/email_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="ranathisarashehara01@gmail.com">
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/category_field"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type of Work">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Creator">
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+</ScrollView>
