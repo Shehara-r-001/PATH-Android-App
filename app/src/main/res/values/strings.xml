@@ -10,4 +10,7 @@
         <item>Decorations</item>
         <item>Foods</item>
     </string-array>
+
+    <string name="short_password">Password you entered is too short.</string>
+    <string name="auth_failed">Authentication is failed. Check your credentials and try again.</string>
 </resources>

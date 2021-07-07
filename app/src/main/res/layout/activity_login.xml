@@ -42,10 +42,10 @@
         android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/username"
+            android:id="@+id/email_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Username"
+            android:hint="Email"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -88,6 +88,14 @@
             android:fontFamily="@font/alegreya"
             android:textColor="@color/black"
             android:textSize="15dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar_login"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone" />
 
     </LinearLayout>
 
