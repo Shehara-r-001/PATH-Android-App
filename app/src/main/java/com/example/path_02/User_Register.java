@@ -20,13 +20,19 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class User_Register extends AppCompatActivity {
 
     TextInputLayout reg_Fname, reg_Uname, reg_email, reg_Pnum, reg_pword, reg_Rpword;
     Button reg_btn, to_login;
     ProgressBar progressBar;
-    FirebaseAuth auth;
+    Spinner spinner;
+    //FirebaseAuth auth;
+
+    FirebaseDatabase rootNode;
+    DatabaseReference reference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +41,17 @@ public class User_Register extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.register);
 
-        auth = FirebaseAuth.getInstance();
+
+
+
+        //auth = FirebaseAuth.getInstance();
         reg_Fname = findViewById(R.id.signup_fullname);
         reg_Uname = findViewById(R.id.signup_username);
         reg_email = findViewById(R.id.signup_email);
         reg_Pnum = findViewById(R.id.signup_contact);
         reg_pword = findViewById(R.id.signup_password);
         reg_Rpword = findViewById(R.id.signup_retype_password);
+        spinner = findViewById(R.id.category_spinner);
         progressBar = findViewById(R.id.progressBar);
 
 
@@ -67,59 +77,62 @@ public class User_Register extends AppCompatActivity {
         reg_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                rootNode = FirebaseDatabase.getInstance();
+                reference = rootNode.getReference("users");
 
-//                Intent next_act = new Intent(User_Register.this, User_Profile.class);
-//                startActivity(next_act);
-                String full_name = reg_Fname.getEditText().toString().trim();
-                String user_name = reg_Uname.getEditText().toString().trim();
-                String email = reg_email.getEditText().toString().trim();
-                String password = reg_pword.getEditText().toString().trim();
 
-                if (TextUtils.isEmpty(full_name)) {
-                    Toast.makeText(getApplicationContext(), "Please enter your full name..!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(user_name)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a user name..!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Please enter your email address..!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Please enter a password..!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Your password id too short..!", Toast.LENGTH_LONG).show();
-                    return;
-                }
-                progressBar.setVisibility(View.VISIBLE);
 
-                auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(User_Register.this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull /*@org.jetbrains.annotations.NotNull*/ Task<AuthResult> task) {
-                        Toast.makeText(User_Register.this, "createUserWithEmail:onComplete" + task.isSuccessful(), Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(User_Register.this, "Authentication Failed..!" + task.getException(), Toast.LENGTH_LONG).show();
 
-                        } else {
+                String f_name = reg_Fname.getEditText().getText().toString();
+                String u_name = reg_Uname.getEditText().getText().toString();
+                String e_mail = reg_email.getEditText().getText().toString();
+                String p_num = reg_Pnum.getEditText().getText().toString();
+                String p_word = reg_pword.getEditText().getText().toString();
+                String re_p_word = reg_Rpword.getEditText().getText().toString();
+                String catg_spinner = spinner.getSelectedItem().toString();
+
+                //progressBar.setVisibility(View.VISIBLE);
+
+
+
+                if(!( TextUtils.isEmpty(re_p_word) || TextUtils.isEmpty(f_name) || TextUtils.isEmpty(u_name) || TextUtils.isEmpty(e_mail))) {
+
+                    if( TextUtils.isEmpty(p_word) || !(p_word.length()<6)) {
+
+                        if (p_word.equals(re_p_word)) {
+
+                            Helper helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner);
+                            reference.child(p_num).setValue(helper);
+                            //progressBar.setVisibility(View.GONE);
+
                             startActivity(new Intent(User_Register.this, User_Profile.class));
                             finish();
+
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Your passwords are not matching..!", Toast.LENGTH_LONG).show();
+                            return;
                         }
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Your password is too short..!", Toast.LENGTH_LONG).show();
                     }
-                });
+                }else{
+                    Toast.makeText(getApplicationContext(), "You must fill every field..!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
 
             }
         });
-
-
     }
-    @Override
-    protected void onResume() {
-        super.onResume();
-        progressBar.setVisibility(View.GONE);
+    private Boolean validateFname(){
+        String fname_by = reg_Fname.getEditText().getText().toString();
+        if(fname_by.isEmpty()){
+            reg_Fname.setError("Field cannot be empty");
+            return false;
+        }else{
+            reg_Fname.setError(null);
+            return true;
+        }
     }
+
 }
