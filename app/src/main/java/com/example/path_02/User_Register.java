@@ -59,8 +59,7 @@ public class User_Register extends AppCompatActivity {
         to_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent next_actv = new Intent(User_Register.this, Login.class);
-                startActivity(next_actv);
+                startActivity(new Intent(User_Register.this, User_Profile.class));
             }
         });
 
@@ -80,44 +79,47 @@ public class User_Register extends AppCompatActivity {
                 rootNode = FirebaseDatabase.getInstance();
                 reference = rootNode.getReference("users");
 
-
-
-
-                String f_name = reg_Fname.getEditText().getText().toString();
-                String u_name = reg_Uname.getEditText().getText().toString();
-                String e_mail = reg_email.getEditText().getText().toString();
-                String p_num = reg_Pnum.getEditText().getText().toString();
-                String p_word = reg_pword.getEditText().getText().toString();
-                String re_p_word = reg_Rpword.getEditText().getText().toString();
-                String catg_spinner = spinner.getSelectedItem().toString();
-
-                //progressBar.setVisibility(View.VISIBLE);
-
-
-
-                if(!( TextUtils.isEmpty(re_p_word) || TextUtils.isEmpty(f_name) || TextUtils.isEmpty(u_name) || TextUtils.isEmpty(e_mail))) {
-
-                    if( TextUtils.isEmpty(p_word) || !(p_word.length()<6)) {
-
-                        if (p_word.equals(re_p_word)) {
-
-                            Helper helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner);
-                            reference.child(p_num).setValue(helper);
-                            //progressBar.setVisibility(View.GONE);
-
-                            startActivity(new Intent(User_Register.this, User_Profile.class));
-                            finish();
-
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Your passwords are not matching..!", Toast.LENGTH_LONG).show();
-                            return;
-                        }
-                    }else{
-                        Toast.makeText(getApplicationContext(), "Your password is too short..!", Toast.LENGTH_LONG).show();
-                    }
-                }else{
-                    Toast.makeText(getApplicationContext(), "You must fill every field..!", Toast.LENGTH_LONG).show();
+                if(!validateFname() || !validateUname() || !validateEmail() || !validatePhone() || !validatePword()){
                     return;
+                } else {
+
+
+                    String f_name = reg_Fname.getEditText().getText().toString();
+                    String u_name = reg_Uname.getEditText().getText().toString();
+                    String e_mail = reg_email.getEditText().getText().toString();
+                    String p_num = reg_Pnum.getEditText().getText().toString();
+                    String p_word = reg_pword.getEditText().getText().toString();
+                    String re_p_word = reg_Rpword.getEditText().getText().toString();
+                    String catg_spinner = spinner.getSelectedItem().toString();
+
+                    //progressBar.setVisibility(View.VISIBLE);
+
+
+                    //if (!(TextUtils.isEmpty(re_p_word) || TextUtils.isEmpty(f_name) || TextUtils.isEmpty(u_name) || TextUtils.isEmpty(e_mail))) {
+
+                        //if (TextUtils.isEmpty(p_word) || !(p_word.length() < 6)) {
+
+                            if (p_word.equals(re_p_word)) {
+
+                                Helper helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner);
+                                reference.child(u_name).setValue(helper);
+                                //progressBar.setVisibility(View.GONE);
+
+                                startActivity(new Intent(User_Register.this, Login.class));
+                                Toast.makeText(getApplicationContext(), "Registration is successful. Please login to use the app", Toast.LENGTH_LONG).show();
+                                finish();
+
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Your passwords are not matching..!", Toast.LENGTH_LONG).show();
+                                return;
+                            }
+                        //} else {
+                            //Toast.makeText(getApplicationContext(), "Your password is too short..!", Toast.LENGTH_LONG).show();
+                        //}
+                    //} else {
+                        //Toast.makeText(getApplicationContext(), "You must fill every field..!", Toast.LENGTH_LONG).show();
+                        //return;
+                    //}
                 }
 
 
@@ -125,12 +127,95 @@ public class User_Register extends AppCompatActivity {
         });
     }
     private Boolean validateFname(){
+
         String fname_by = reg_Fname.getEditText().getText().toString();
+
         if(fname_by.isEmpty()){
             reg_Fname.setError("Field cannot be empty");
             return false;
         }else{
             reg_Fname.setError(null);
+            reg_Fname.setErrorEnabled(false);   //to remove the space of the error
+            return true;
+        }
+    }
+
+    private Boolean validateUname(){
+
+        String uname_by = reg_Uname.getEditText().getText().toString();
+        String noSpaces = "(?=\\s+$)";
+
+        if(uname_by.isEmpty()){
+            reg_Uname.setError("Field cannot be empty");
+            return false;
+        }else if(uname_by.length()>=12){
+            reg_Uname.setError("Your username is too long");
+            return false;
+        }else if(uname_by.matches(noSpaces)){
+            reg_Uname.setError("Spaces cannot be used for the username");
+            return false;
+        }
+        else{
+            reg_Uname.setError(null);
+            reg_Uname.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validateEmail(){
+
+        String email_by = reg_email.getEditText().getText().toString();
+        String email_pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";    // A-Z, a-z, 0-9, ., -, _ and after @ a-z, .
+
+        if(email_by.isEmpty()){
+            reg_email.setError("Field cannot be empty");
+            return false;
+        }
+        else if (!email_by.matches(email_pattern)){
+            reg_email.setError("Invalid email");
+            return false;
+        }
+        else{
+            reg_email.setError(null);
+            reg_email.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validatePhone(){
+
+        String pnum_by = reg_Pnum.getEditText().getText().toString();
+        String phone_pattern =  "^" + "(7|0(?:\\+94))" + "([0-9]{9,10})" + "$";
+
+        if(pnum_by.isEmpty()){
+            reg_Pnum.setError("Field cannot be empty");
+            return false;
+        }else if(pnum_by.matches(phone_pattern)){
+            reg_Pnum.setError("Invalid phone number");
+            return false;
+        }
+        else{
+            reg_Pnum.setError(null);
+            reg_Pnum.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private Boolean validatePword(){
+
+        String pword_by = reg_pword.getEditText().getText().toString();
+        String password_pattern = "^" + "(?=.*[a-z])" + "(?=.*[A-Z])" + "(?=.*\\s+$)" + ".{6,}" +"$";
+
+        if(pword_by.isEmpty()){
+            reg_pword.setError("Field cannot be empty");
+            return false;
+        }else if(pword_by.matches(password_pattern)){
+            reg_pword.setError("Your password is too weak");
+            return false;
+        }
+        else{
+            reg_pword.setError(null);
+            reg_pword.setErrorEnabled(false);
             return true;
         }
     }
