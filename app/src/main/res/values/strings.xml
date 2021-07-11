@@ -2,15 +2,17 @@
     <string name="app_name">PATH_02</string>
 
     <string name="catg01">Arts n Crafts</string>
+    <string name="catg02">Beauty</string>
+    <string name="catg03">Decorations</string>
+    <string name="catg04">Foods</string>
 
     <string name="categories">What You Do?</string>
     <string-array name="category_array">
-        <item>Arts n Crafts</item>
-        <item>Beauty</item>
-        <item>Decorations</item>
-        <item>Foods</item>
+        <item>@string/catg01</item>
+        <item>@string/catg02</item>
+        <item>@string/catg03</item>
+        <item>@string/catg04</item>
     </string-array>
 
-    <string name="short_password">Password you entered is too short.</string>
-    <string name="auth_failed">Authentication is failed. Check your credentials and try again.</string>
+
 </resources>

@@ -1,14 +1,19 @@
 package com.example.path_02;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -16,12 +21,16 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 
 public class User_Profile extends AppCompatActivity {
 
     TextView full_name, user_name, category;
-    TextInputLayout email, phone_num, pass, user_name2;
+    //TextInputLayout email, phone_num, pass;
+    TextView user_name2, email, phone_num, pass;
+    ImageView profPic;
     DatabaseReference reference;
 
     String userNAME, eMAIL, pWORD, pNUM;
@@ -37,11 +46,12 @@ public class User_Profile extends AppCompatActivity {
 
         full_name = findViewById(R.id.prof_page_fullname);
         user_name = findViewById(R.id.prof_page_uname);
-        user_name2 = findViewById(R.id.profile_uname_updt);
-        email = findViewById(R.id.profile_email);
-        phone_num = findViewById(R.id.profile_phone);
+        user_name2 = findViewById(R.id.view_ph_uname);
+        email = findViewById(R.id.view_ph_email);
+        phone_num = findViewById(R.id.view_ph_pnumber);
         category = findViewById(R.id.profile_catg);
-        pass = findViewById(R.id.profile_pass);
+        pass = findViewById(R.id.view_ph_pword);
+        profPic = findViewById(R.id.user_prof_image);
 
 
         ImportData();
@@ -63,38 +73,14 @@ public class User_Profile extends AppCompatActivity {
             }
         });
 
-        Button updt_info = (Button) findViewById(R.id.profile_update);
-        updt_info.setOnClickListener(new View.OnClickListener() {
+
+
+        TextView change_prof = (TextView) findViewById(R.id.update_prof);
+        change_prof.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//
-//                DatabaseReference rootDB = FirebaseDatabase.getInstance().getReference().child("users");
-//
-//                HashMap hashmap = new HashMap();
-//                hashmap.put("uname", user_name2);
-//                hashmap.put("email", eMAIL);
-//                hashmap.put("pword", pWORD);
-
-
-                if( AltUsername() || AltEmail() || AltPnum() || AltPword()) {
-                    Toast.makeText(getApplicationContext(), "Data has been updated", Toast.LENGTH_LONG).show();
-//                    rootDB.child(userNAME).updateChildren(hashmap).addOnSuccessListener(new OnSuccessListener() {
-//                        @Override
-//                        public void onSuccess(Object o) {
-//                            Toast.makeText(getApplicationContext(), "Data has been updated", Toast.LENGTH_LONG).show();
-//                        }
-//                    });
-                }
-
-
-
-            }
-        });
-
-        TextView update_btn = (TextView) findViewById(R.id.update_prof);
-        update_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1000);
 
             }
         });
@@ -108,6 +94,18 @@ public class User_Profile extends AppCompatActivity {
 
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable /*@org.jetbrains.annotations.Nullable*/ Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000){
+            if(resultCode == Activity.RESULT_OK){
+                Uri image_uri = data.getData();
+                profPic.setImageURI(image_uri);
+            }
+        }
+    }
+
     private void ImportData(){
         Intent intent = getIntent();
         String fullNAME = intent.getStringExtra("fname");
@@ -119,69 +117,13 @@ public class User_Profile extends AppCompatActivity {
 
         full_name.setText(fullNAME);
         user_name.setText(userNAME);
-        user_name2.getEditText().setText(userNAME);
-        email.getEditText().setText(eMAIL);
-        phone_num.getEditText().setText(pNUM);
+        user_name2.setText(userNAME);
+        email.setText(eMAIL);
+        phone_num.setText(pNUM);
         category.setText(catG);
-        pass.getEditText().setText(passW);
+        pass.setText(passW);
 
     }
 
-
-
-    private boolean AltUsername(){
-        String noSpaces = "(?=\\s+$)";
-
-        if((!userNAME.equals(user_name2.getEditText().getText().toString())) && (userNAME.matches(noSpaces))){
-
-
-            reference.child(userNAME).child("uname").setValue(user_name2.getEditText().getText().toString());
-            userNAME = user_name2.getEditText().getText().toString();
-            return true;
-        }else{
-            Toast.makeText(getApplicationContext(), "Invalid username..!", Toast.LENGTH_LONG).show();
-            return false;
-        }
-    }
-    private boolean AltEmail(){
-
-        String email_pattern = "[a-zA-z0-9._-]+@[a-z]+\\.+[a-z]+";    // A-Z, a-z, 0-9, ., -, _ and after @ a-z, .
-
-
-        if((!eMAIL.equals(email.getEditText().getText().toString())) && (eMAIL.matches(email_pattern))){
-            reference.child(userNAME).child("email").setValue(email.getEditText().getText().toString());
-            eMAIL = email.getEditText().getText().toString();
-            return true;
-        }else{
-            Toast.makeText(getApplicationContext(), "Invalid email format..!", Toast.LENGTH_LONG).show();
-            return false;
-        }
-    }
-    private boolean AltPnum(){
-
-        String phone_pattern =  "^" + "(7|0(?:\\+94))" + "([0-9]{9,10})" + "$";
-
-        if((!pNUM.equals(phone_num.getEditText().getText().toString())) && (pNUM.matches(phone_pattern))){
-            reference.child(userNAME).child("pnumber").setValue(phone_num.getEditText().getText().toString());
-            pNUM = phone_num.getEditText().getText().toString();
-            return true;
-        }else{
-            Toast.makeText(getApplicationContext(), "Invalid phone number..!", Toast.LENGTH_LONG).show();
-            return false;
-        }
-    }
-    private boolean AltPword(){
-
-        String password_pattern = "^" + "(?=.*[a-z])" + "(?=.*[A-Z])" + "(?=.*\\s+$)" + ".{6,}" +"$";
-
-        if((!pWORD.equals(pass.getEditText().getText().toString())) && (pWORD.matches(password_pattern))){
-            reference.child(userNAME).child("pword").setValue(pass.getEditText().getText().toString());
-            pWORD = pass.getEditText().getText().toString();
-            return true;
-        }else{
-            Toast.makeText(getApplicationContext(), "New password is too weak..!", Toast.LENGTH_LONG).show();
-            return false;
-        }
-    }
 
 }

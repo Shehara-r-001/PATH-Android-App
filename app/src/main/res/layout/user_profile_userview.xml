@@ -111,66 +111,105 @@
             android:padding="10dp"
             android:orientation="vertical">
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/profile_uname_updt"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_weight="1"
+                    android:src="@drawable/user"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/profile_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email">
+            <TextView
+                android:id="@+id/view_ph_uname"
+                android:layout_width="0dp"
+                android:layout_weight="5"
+                android:layout_height="wrap_content"
+                android:text="Username"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/alegreya"
+                android:layout_marginTop="5dp"/></LinearLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white">
-            </com.google.android.material.textfield.TextInputEditText>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/profile_phone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Phone Number">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white">
-            </com.google.android.material.textfield.TextInputEditText>
-        </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/profile_pass"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Password">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
-                </com.google.android.material.textfield.TextInputEditText>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_weight="1"
+                    android:src="@drawable/email"/>
+                <TextView
+                android:id="@+id/view_ph_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Email"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/alegreya"
+                android:layout_marginTop="5dp"/></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/phone"/>
+
+            <TextView
+                android:id="@+id/view_ph_pnumber"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Phone Number"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/alegreya"
+                android:layout_marginTop="5dp"/></LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/key"/>
+            <TextView
+                android:id="@+id/view_ph_pword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:text="Password"
+                android:layout_marginLeft="5dp"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:fontFamily="@font/alegreya"
+                android:layout_marginTop="5dp"/></LinearLayout>
 
             <Button
                 android:id="@+id/profile_update"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="UPDATE"
+                android:fontFamily="@font/alegreya"
                 android:textColor="@color/white"
-                android:textSize="20sp"></Button>
+                android:textSize="20sp"
+                android:layout_marginTop="10dp"/>
 
 
         </LinearLayout>
@@ -196,7 +235,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="UPDATE"
+            android:text="Profile"
             android:textAlignment="center"
             android:textSize="30sp"
             android:fontFamily="@font/alegreya"
