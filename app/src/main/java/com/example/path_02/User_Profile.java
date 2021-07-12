@@ -13,13 +13,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +37,7 @@ public class User_Profile extends AppCompatActivity {
     TextView user_name2, email, phone_num, pass;
     ImageView profPic;
     DatabaseReference reference;
+    StorageReference storageReference;
 
     String userNAME, eMAIL, pWORD, pNUM;
 
@@ -43,6 +49,7 @@ public class User_Profile extends AppCompatActivity {
         setContentView(R.layout.user_profile_userview);
 
         reference = FirebaseDatabase.getInstance().getReference("users");
+        storageReference = FirebaseStorage.getInstance().getReference();
 
         full_name = findViewById(R.id.prof_page_fullname);
         user_name = findViewById(R.id.prof_page_uname);
@@ -102,8 +109,25 @@ public class User_Profile extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 Uri image_uri = data.getData();
                 profPic.setImageURI(image_uri);
+
+                UploadProfPic(image_uri);
             }
         }
+    }
+
+    private void UploadProfPic(Uri image_uri) {
+        StorageReference strRef = storageReference.child("profile.jpg");
+        strRef.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getApplicationContext(), "Profile picture was successfully updated", Toast.LENGTH_LONG).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull /*@org.jetbrains.annotations.NotNull*/ Exception e) {
+                Toast.makeText(getApplicationContext(), "Failed to update profile picture", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void ImportData(){
