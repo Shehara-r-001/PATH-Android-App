@@ -1,6 +1,7 @@
 package com.example.path_02;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +22,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -36,8 +40,11 @@ public class User_Profile extends AppCompatActivity {
     //TextInputLayout email, phone_num, pass;
     TextView user_name2, email, phone_num, pass;
     ImageView profPic;
+    ProgressBar progressBar;
     DatabaseReference reference;
     StorageReference storageReference;
+    FirebaseAuth fAUTH;
+
 
     String userNAME, eMAIL, pWORD, pNUM;
 
@@ -48,8 +55,21 @@ public class User_Profile extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.user_profile_userview);
 
-        reference = FirebaseDatabase.getInstance().getReference("users");
+        FirebaseAuth mAuth;
+        mAuth = FirebaseAuth.getInstance();
+
+        reference = FirebaseDatabase.getInstance().getReference("email");
         storageReference = FirebaseStorage.getInstance().getReference();
+
+
+
+        StorageReference profref = storageReference.child("users/"+ phone_num +"/profile.jpg");
+        profref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {           // to load directly without delay after restart
+                Picasso.get().load(uri).into(profPic);
+            }
+        });
 
         full_name = findViewById(R.id.prof_page_fullname);
         user_name = findViewById(R.id.prof_page_uname);
@@ -98,6 +118,14 @@ public class User_Profile extends AppCompatActivity {
 
             }
         });
+        Button logout = (Button) findViewById(R.id.logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(User_Profile.this, Login.class));
+            }
+        });
 
 
     }
@@ -108,19 +136,30 @@ public class User_Profile extends AppCompatActivity {
         if (requestCode == 1000){
             if(resultCode == Activity.RESULT_OK){
                 Uri image_uri = data.getData();
-                profPic.setImageURI(image_uri);
+                //profPic.setImageURI(image_uri);
 
                 UploadProfPic(image_uri);
+
             }
         }
     }
 
     private void UploadProfPic(Uri image_uri) {
-        StorageReference strRef = storageReference.child("profile.jpg");
+
+
+
+
+        StorageReference strRef = storageReference.child("users/"+ phone_num +"/profile.jpg");
         strRef.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(getApplicationContext(), "Profile picture was successfully updated", Toast.LENGTH_LONG).show();
+                strRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Picasso.get().load(uri).into(profPic);
+
+                    }
+                });
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

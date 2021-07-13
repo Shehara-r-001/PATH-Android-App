@@ -211,6 +211,13 @@
                 android:textSize="20sp"
                 android:layout_marginTop="10dp"/>
 
+            <ProgressBar
+                android:id="@+id/progressBar_prof"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginBottom="20dp"
+                android:visibility="gone" />
+
 
         </LinearLayout>
 
@@ -256,6 +263,19 @@
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOGOUT"
+            android:fontFamily="@font/alegreya"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"/>
+
     </LinearLayout>
 
 </ScrollView>

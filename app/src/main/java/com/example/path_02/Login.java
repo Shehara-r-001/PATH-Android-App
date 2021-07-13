@@ -29,10 +29,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
 
-    private TextInputLayout user_name, password;
+    private TextInputLayout email, password;
     private Button login_btn;
     private ProgressBar progressBar;
-    private FirebaseAuth auth;
+    private FirebaseAuth f_auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +41,13 @@ public class Login extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
-//        auth = FirebaseAuth.getInstance();
+        f_auth = FirebaseAuth.getInstance();
 //        if(auth.getCurrentUser() != null){
 //            startActivity(new Intent(Login.this, User_Profile.class));
 //        }
         setContentView(R.layout.activity_login);
 
-        user_name = findViewById(R.id.username_login);
+        email = findViewById(R.id.email_login);
         password = findViewById(R.id.password_login);
         progressBar = findViewById(R.id.progressBar_login);
 
@@ -66,10 +66,12 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!validateUname() || !validatePword()) {
+                if (!validateUname() || !validatePword()) {
+                    progressBar.setVisibility(View.GONE);
                     return;
 
-                }else{
+
+                } else {
                     user_Existance();
 
                 }
@@ -79,93 +81,71 @@ public class Login extends AppCompatActivity {
         });
 
     }
-    private void user_Existance(){
 
-        final String entered_uname = user_name.getEditText().getText().toString().trim();
-        final String entered_pword = password.getEditText().getText().toString().trim();
+    private void user_Existance() {
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+        progressBar.setVisibility(View.VISIBLE);
 
-        Query user_check = reference.orderByChild("uname").equalTo(entered_uname);
-        user_check.addListenerForSingleValueEvent(new ValueEventListener() {
+        String eMail = email.getEditText().getText().toString().trim();
+        String pWord = password.getEditText().getText().toString().trim();
+
+        f_auth.signInWithEmailAndPassword(eMail, pWord).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
-            public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-                if(snapshot.exists()){
+            public void onComplete(@NonNull /*org.jetbrains.annotations.NotNull*/ Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_LONG).show();
 
-                    user_name.setError(null);
-                    user_name.setErrorEnabled(false);
+                    startActivity(new Intent(Login.this, User_Profile.class));
 
-                    String passwordDB = snapshot.child(entered_uname).child("pword").getValue(String.class);
+                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
 
-                    if(passwordDB.equals(entered_pword)){
+                    Query user_check = reference.orderByChild("uname");
 
-                        password.setError(null);
-                        password.setErrorEnabled(false);
 
-                        String fnameDB = snapshot.child(entered_uname).child("fname").getValue(String.class);
-                        String unameDB = snapshot.child(entered_uname).child("uname").getValue(String.class);
-                        String emailDB = snapshot.child(entered_uname).child("email").getValue(String.class);
-                        String pnumDB = snapshot.child(entered_uname).child("pnumber").getValue(String.class);
-                        String spinDB = snapshot.child(entered_uname).child("spin").getValue(String.class);
 
-                        Intent intent = new Intent(Login.this, User_Profile.class);
 
-                        intent.putExtra("fname", fnameDB);
-                        intent.putExtra("uname", unameDB);
-                        intent.putExtra("email", emailDB);
-                        intent.putExtra("pword", passwordDB);
-                        intent.putExtra("pnumber", pnumDB);
-                        intent.putExtra("spin", spinDB);
-                        startActivity(intent);
-                    }
-                    else{
-                        password.setError("Wrong password..!");
-                        password.requestFocus();
-                    }
+
+
                 }
                 else{
-                    user_name.setError("User does not exist..!");
-                    user_name.requestFocus();
+                    Toast.makeText(getApplicationContext(), "Error..!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                    progressBar.setVisibility(View.GONE);
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
-
             }
         });
     }
 
-    private Boolean validateUname(){
 
-        String uname_by = user_name.getEditText().getText().toString();
+        private Boolean validateUname () {
 
-        if(uname_by.isEmpty()){
-            user_name.setError("Field cannot be empty");
-            return false;
+            String uname_by = email.getEditText().getText().toString();
+
+            if (uname_by.isEmpty()) {
+                email.setError("Field cannot be empty");
+                return false;
+            } else {
+                email.setError(null);
+                email.setErrorEnabled(false);
+                return true;
+            }
         }
-        else{
-            user_name.setError(null);
-            user_name.setErrorEnabled(false);
-            return true;
+
+        private Boolean validatePword () {
+
+            String pword_by = password.getEditText().getText().toString();
+
+            if (pword_by.isEmpty()) {
+                password.setError("Field cannot be empty");
+                return false;
+            } else {
+                password.setError(null);
+                password.setErrorEnabled(false);
+                return true;
+            }
+
         }
     }
 
-    private Boolean validatePword(){
-
-        String pword_by = password.getEditText().getText().toString();
-
-        if(pword_by.isEmpty()){
-            password.setError("Field cannot be empty");
-            return false;
-        }
-        else{
-            password.setError(null);
-            password.setErrorEnabled(false);
-            return true;
-        }
-    }
-}
 
 
 
