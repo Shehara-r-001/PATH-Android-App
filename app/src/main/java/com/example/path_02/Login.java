@@ -3,6 +3,7 @@ package com.example.path_02;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,6 +21,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +36,7 @@ public class Login extends AppCompatActivity {
     private ProgressBar progressBar;
     private FirebaseAuth f_auth;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,10 @@ public class Login extends AppCompatActivity {
 
 
         f_auth = FirebaseAuth.getInstance();
+
+        if (f_auth.getCurrentUser() != null) {
+            updateUI(f_auth.getCurrentUser());
+        }
 //        if(auth.getCurrentUser() != null){
 //            startActivity(new Intent(Login.this, User_Profile.class));
 //        }
@@ -95,14 +102,57 @@ public class Login extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "Logged in successfully", Toast.LENGTH_LONG).show();
 
-                    startActivity(new Intent(Login.this, User_Profile.class));
+//                    Intent intent = new Intent(Login.this, User_Profile.class);
+//                    startActivity(intent);
+                    Log.d("Login", "signInWithEmail:success");
+                    FirebaseUser user = f_auth.getCurrentUser();
+                    updateUI(user);
 
-                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
 
-                    Query user_check = reference.orderByChild("uname");
+                    progressBar.setVisibility(View.GONE);
+
+//                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
+//
+//                    reference.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
+//                            for(DataSnapshot ds: snapshot.getChildren()){
+//                                if(ds.child("email").equals(eMail)){
+//                                    String fnameDB = ds.child("fname").getValue(String.class);
+//                                    String unameDB = ds.child("uname").getValue(String.class);
+//                                    String emailDB = ds.child("email").getValue(String.class);
+//                                    String passwordDB = ds.child("pword").getValue(String.class);
+//                                    String pnumDB = ds.child("pnumber").getValue(String.class);
+//                                    String spinDB = ds.child("spin").getValue(String.class);
 
 
 
+
+//                                    intent.putExtra("fname", fnameDB);
+//                                    intent.putExtra("uname", unameDB);
+//                                    intent.putExtra("email", emailDB);
+//                                    intent.putExtra("pword", passwordDB);
+//                                    intent.putExtra("pnumber", pnumDB);
+//                                    intent.putExtra("spin", spinDB);
+//
+//                                }
+//                                else{
+//
+//                                }
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
+//
+//                        }
+//                    });
+
+
+
+//
+//
+//                    Query user_check = reference.orderByChild("uname");
 
 
 
@@ -113,6 +163,14 @@ public class Login extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void updateUI(FirebaseUser currentUser){
+
+        Intent intent = new Intent(Login.this, User_Profile.class);
+        intent.putExtra("email", currentUser.getEmail());
+        Log.v("Data", currentUser.getUid());
+        startActivity(intent);
     }
 
 

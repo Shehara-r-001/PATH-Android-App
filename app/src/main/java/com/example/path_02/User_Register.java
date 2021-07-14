@@ -34,7 +34,9 @@ public class User_Register extends AppCompatActivity {
     ProgressBar progressBar;
     Spinner spinner;
     FirebaseAuth auth;
-    String user_ID;
+    Helper helper;
+
+    String e_mail, p_word;
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -51,7 +53,7 @@ public class User_Register extends AppCompatActivity {
 
 
         auth = FirebaseAuth.getInstance();
-        rootNode = FirebaseDatabase.getInstance();
+//        rootNode = FirebaseDatabase.getInstance();
 
         reg_Fname = findViewById(R.id.signup_fullname);
         reg_Uname = findViewById(R.id.signup_username);
@@ -61,6 +63,9 @@ public class User_Register extends AppCompatActivity {
         reg_Rpword = findViewById(R.id.signup_retype_password);
         spinner = findViewById(R.id.category_spinner);
         progressBar = findViewById(R.id.progressBar);
+
+        rootNode = FirebaseDatabase.getInstance();
+        reference = rootNode.getReference("users");
 
         if ( auth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), User_Profile.class));
@@ -90,13 +95,13 @@ public class User_Register extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                final String f_name = reg_Fname.getEditText().getText().toString().trim();
-                final String u_name = reg_Uname.getEditText().getText().toString().trim();
-                final String e_mail = reg_email.getEditText().getText().toString().trim();
-                String p_word = reg_pword.getEditText().getText().toString().trim();
-                String re_p_word = reg_Rpword.getEditText().getText().toString().trim();
-                final String p_num = reg_Pnum.getEditText().getText().toString().trim();
-                String catg_spinner = spinner.getSelectedItem().toString();
+//                final String f_name = reg_Fname.getEditText().getText().toString().trim();
+//                final String u_name = reg_Uname.getEditText().getText().toString().trim();
+//                final String e_mail = reg_email.getEditText().getText().toString().trim();
+//                String p_word = reg_pword.getEditText().getText().toString().trim();
+//                String re_p_word = reg_Rpword.getEditText().getText().toString().trim();
+//                final String p_num = reg_Pnum.getEditText().getText().toString().trim();
+//                String catg_spinner = spinner.getSelectedItem().toString();
 
 
                 rootNode = FirebaseDatabase.getInstance();
@@ -109,20 +114,17 @@ public class User_Register extends AppCompatActivity {
                     progressBar.setVisibility(View.VISIBLE);
 
 
-//                    String f_name = reg_Fname.getEditText().getText().toString();
-//                    String u_name = reg_Uname.getEditText().getText().toString();
-//                    String e_mail = reg_email.getEditText().getText().toString();
-//                    String p_num = reg_Pnum.getEditText().getText().toString();
-//                    String p_word = reg_pword.getEditText().getText().toString();
-//                    String re_p_word = reg_Rpword.getEditText().getText().toString();
-//                    String catg_spinner = spinner.getSelectedItem().toString();
+                    String f_name = reg_Fname.getEditText().getText().toString();
+                    String u_name = reg_Uname.getEditText().getText().toString();
+                    e_mail = reg_email.getEditText().getText().toString();
+                    String p_num = reg_Pnum.getEditText().getText().toString();
+                    p_word = reg_pword.getEditText().getText().toString();
+                    String re_p_word = reg_Rpword.getEditText().getText().toString();
+                    String catg_spinner = spinner.getSelectedItem().toString();
+                    helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner);
 
-                    //progressBar.setVisibility(View.VISIBLE);
 
 
-                    //if (!(TextUtils.isEmpty(re_p_word) || TextUtils.isEmpty(f_name) || TextUtils.isEmpty(u_name) || TextUtils.isEmpty(e_mail))) {
-
-                        //if (TextUtils.isEmpty(p_word) || !(p_word.length() < 6)) {
 
                             if (p_word.equals(re_p_word)) {
 
@@ -131,14 +133,14 @@ public class User_Register extends AppCompatActivity {
                                     public void onComplete(@NonNull /*@org.jetbrains.annotations.NotNull*/ Task<AuthResult> task) {
                                         if(task.isSuccessful()){
 
-                                            Helper helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner);
-                                            reference.child(u_name).setValue(helper);
+                                            FirebaseUser user = auth.getCurrentUser();
+                                            updateUI(user);
 
-                                            Toast.makeText(getApplicationContext(), "User has been created. Please login to continue..", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(User_Register.this, Login.class));
+                                            Toast.makeText(getApplicationContext(), "User has been created. Please login to continue..", Toast.LENGTH_SHORT).show();
                                             finish();
 
-                                            }
+                                        }
                                         else{
                                             Toast.makeText(getApplicationContext(), "Error..!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                             return;
@@ -146,6 +148,8 @@ public class User_Register extends AppCompatActivity {
                                     }
 
                                 });
+
+
 
                             } else {
                                 Toast.makeText(getApplicationContext(), "Your passwords are not matching..!", Toast.LENGTH_LONG).show();
@@ -157,6 +161,14 @@ public class User_Register extends AppCompatActivity {
             }
         });
     }
+
+
+    public void updateUI(FirebaseUser user){
+        String id = reference.push().getKey();
+        reference.child(id).setValue(helper);
+    }
+
+
     private Boolean validateFname(){
 
         String fname_by = reg_Fname.getEditText().getText().toString();
