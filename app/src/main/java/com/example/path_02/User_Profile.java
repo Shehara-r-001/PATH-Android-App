@@ -43,7 +43,7 @@ public class User_Profile extends AppCompatActivity {
     DatabaseReference reference, usrRF;
     StorageReference storageReference;
     FirebaseAuth fAUTH;
-    String email_i;
+    String email_i, try_url;
     FirebaseUser usr;
 
 
@@ -67,11 +67,11 @@ public class User_Profile extends AppCompatActivity {
 
 
 
-        StorageReference profref = storageReference.child("users/"+ email_i +"/profile.jpg");
+        final StorageReference profref = storageReference.child("users/"+ email_i +"/profile.jpg");
         profref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {           // to load directly without delay after restart
-                Picasso.get().load(uri).into(profPic);
+                Picasso.get().load(uri).fit().into(profPic);
             }
         });
 
@@ -115,10 +115,7 @@ public class User_Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(openGallery, 1000);
-//                Intent cdp = new Intent();
-//                cdp.setAction(Intent.ACTION_GET_CONTENT);
-//                cdp.setType("image/*");
-//                startActivityForResult(cdp, 33);
+
 
             }
         });
@@ -170,7 +167,7 @@ public class User_Profile extends AppCompatActivity {
     private void UploadProfPic(Uri image_uri) {
 
 //        final StorageReference strRef = storageReference.child("profile_picture").child(fAUTH.getUid());
-        StorageReference strRef = storageReference.child("users/"+ email_i +"/profile.jpg");
+        final StorageReference strRef = storageReference.child("users/"+ email_i +"/profile.jpg");
         strRef.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -178,7 +175,9 @@ public class User_Profile extends AppCompatActivity {
                 strRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
-                        Picasso.get().load(uri).into(profPic);
+                        Picasso.get().load(uri).fit().into(profPic);
+
+                        //try_url = strRef.getDownloadUrl().toString();
 
                     }
                 });
@@ -232,6 +231,9 @@ public class User_Profile extends AppCompatActivity {
                         phone_num.setText(phoneNum);
                         category.setText(catG);
                         pass.setText(paSS);
+
+                        String id = reference.push().getKey();
+                        reference.child(id).child("url").setValue(try_url);
 
                     }
                 }

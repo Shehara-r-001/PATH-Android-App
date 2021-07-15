@@ -1,14 +1,18 @@
 package com.example.path_02;
 
+import android.widget.ImageView;
+
 public class Helper {
 
-    String fname, uname, email, pnumber, pword, rePword, spin;
+    String fname, uname, email, pnumber, pword, rePword, spin, prof_url;
 
     public Helper(){           //avoid errors in firebase
 
     }
 
-    public Helper(String fname, String uname, String email, String pnumber, String pword, String rePword, String spin) {
+
+
+    public Helper(String fname, String uname, String email, String pnumber, String pword, String rePword, String spin /*, String prof_url*/) {
         this.fname = fname;
         this.uname = uname;
         this.email = email;
@@ -16,7 +20,17 @@ public class Helper {
         this.pword = pword;
         this.rePword = rePword;
         this.spin = spin;
+        //this.prof_url = prof_url;
 
+
+    }
+
+    public String getProf_url() {
+        return prof_url;
+    }
+
+    public void setProf_url(String prof_url) {
+        this.prof_url = prof_url;
     }
 
     public String getFname() {

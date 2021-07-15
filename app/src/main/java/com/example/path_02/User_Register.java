@@ -9,6 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,12 +32,14 @@ public class User_Register extends AppCompatActivity {
 
     TextInputLayout reg_Fname, reg_Uname, reg_email, reg_Pnum, reg_pword, reg_Rpword;
     Button reg_btn, to_login;
+    ImageView profile_URL;
     ProgressBar progressBar;
     Spinner spinner;
     FirebaseAuth auth;
     Helper helper;
 
-    String e_mail, p_word;
+    String e_mail, p_word, profUrl;
+
 
     FirebaseDatabase rootNode;
     DatabaseReference reference;
@@ -63,6 +66,7 @@ public class User_Register extends AppCompatActivity {
         reg_Rpword = findViewById(R.id.signup_retype_password);
         spinner = findViewById(R.id.category_spinner);
         progressBar = findViewById(R.id.progressBar);
+        //profile_URL = findViewById(R.id.user_prof_image);
 
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("users");

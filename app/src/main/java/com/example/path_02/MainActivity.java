@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         to_catg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent catg_act = new Intent(MainActivity.this, Categories.class);
+                Intent catg_act = new Intent(MainActivity.this, UserList.class); //change
                 startActivity(catg_act);
             }
         });
