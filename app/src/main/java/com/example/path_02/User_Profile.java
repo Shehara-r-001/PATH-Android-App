@@ -67,7 +67,7 @@ public class User_Profile extends AppCompatActivity {
 
 
 
-        StorageReference profref = storageReference.child("users/"+ storageReference +"/profile.jpg");
+        StorageReference profref = storageReference.child("users/"+ email_i +"/profile.jpg");
         profref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {           // to load directly without delay after restart
@@ -115,13 +115,19 @@ public class User_Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(openGallery, 1000);
+//                Intent cdp = new Intent();
+//                cdp.setAction(Intent.ACTION_GET_CONTENT);
+//                cdp.setType("image/*");
+//                startActivityForResult(cdp, 33);
 
             }
         });
+
         TextView add_img = (TextView) findViewById(R.id.add_prof);
         add_img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
             }
         });
@@ -131,6 +137,16 @@ public class User_Profile extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(User_Profile.this, Login.class));
+            }
+        });
+
+        ImageView change_dp = (ImageView) findViewById(R.id.user_prof_image);
+        change_dp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openGallery = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(openGallery, 1000);
+
             }
         });
 
@@ -153,13 +169,12 @@ public class User_Profile extends AppCompatActivity {
 
     private void UploadProfPic(Uri image_uri) {
 
-
-
-
-        StorageReference strRef = storageReference.child("users/"+ storageReference +"/profile.jpg");
+//        final StorageReference strRef = storageReference.child("profile_picture").child(fAUTH.getUid());
+        StorageReference strRef = storageReference.child("users/"+ email_i +"/profile.jpg");
         strRef.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Toast.makeText(getApplicationContext(), "Image has been uploaded", Toast.LENGTH_LONG).show();
                 strRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                     @Override
                     public void onSuccess(Uri uri) {
@@ -175,6 +190,8 @@ public class User_Profile extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void ImportData(){
 //        Intent intent = getIntent();

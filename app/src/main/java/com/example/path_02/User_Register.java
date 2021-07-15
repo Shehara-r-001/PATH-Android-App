@@ -152,6 +152,7 @@ public class User_Register extends AppCompatActivity {
 
 
                             } else {
+                                progressBar.setVisibility(View.GONE);
                                 Toast.makeText(getApplicationContext(), "Your passwords are not matching..!", Toast.LENGTH_LONG).show();
                                 return;
                             }

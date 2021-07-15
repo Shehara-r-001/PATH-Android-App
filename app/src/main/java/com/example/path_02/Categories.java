@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +19,7 @@ public class Categories extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.catogaries);
 
-        TextView arts_n_crafts = (TextView) findViewById(R.id.catg_AnT);
+        ImageView arts_n_crafts = (ImageView) findViewById(R.id.catg_AnT);
         arts_n_crafts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -26,7 +27,7 @@ public class Categories extends AppCompatActivity {
                 startActivity(ant_act);
             }
         });
-        TextView bty = (TextView) findViewById(R.id.catg_Beauty);
+        ImageView bty = (ImageView) findViewById(R.id.catg_Beauty);
         bty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,7 +35,7 @@ public class Categories extends AppCompatActivity {
                 startActivity(bty_act);
             }
         });
-        TextView decos = (TextView) findViewById(R.id.catg_Deco);
+        ImageView decos = (ImageView) findViewById(R.id.catg_Decos);
         decos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +43,7 @@ public class Categories extends AppCompatActivity {
                 startActivity(deco_act);
             }
         });
-        TextView foods = (TextView) findViewById(R.id.catg_food);
+        ImageView foods = (ImageView) findViewById(R.id.catg_Foods);
         foods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
