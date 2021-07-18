@@ -38,7 +38,7 @@ public class User_Register extends AppCompatActivity {
     FirebaseAuth auth;
     Helper helper;
 
-    String e_mail, p_word, profUrl;
+    String e_mail, p_word, profUrl, prof_url;
 
 
     FirebaseDatabase rootNode;
@@ -71,6 +71,9 @@ public class User_Register extends AppCompatActivity {
         rootNode = FirebaseDatabase.getInstance();
         reference = rootNode.getReference("users");
 
+//        Intent i = getIntent();
+//        prof_url = i.getStringExtra("imgRef");
+
         if ( auth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), User_Profile.class));
             finish();
@@ -81,7 +84,7 @@ public class User_Register extends AppCompatActivity {
         to_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(User_Register.this, User_Profile.class));
+                startActivity(new Intent(User_Register.this, Login.class));
             }
         });
 
@@ -125,7 +128,7 @@ public class User_Register extends AppCompatActivity {
                     p_word = reg_pword.getEditText().getText().toString();
                     String re_p_word = reg_Rpword.getEditText().getText().toString();
                     String catg_spinner = spinner.getSelectedItem().toString();
-                    helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner);
+                    helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner, prof_url);
 
 
 

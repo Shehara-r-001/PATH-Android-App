@@ -33,6 +33,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class User_Profile extends AppCompatActivity {
 
     TextView full_name, user_name, category;
@@ -47,7 +50,7 @@ public class User_Profile extends AppCompatActivity {
     FirebaseUser usr;
 
 
-    String userNAME, eMAIL, pWORD, pNUM;
+    String userNAME, eMAIL, pWORD, pNUM, url, imgRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,7 +180,29 @@ public class User_Profile extends AppCompatActivity {
                     public void onSuccess(Uri uri) {
                         Picasso.get().load(uri).fit().into(profPic);
 
-                        //try_url = strRef.getDownloadUrl().toString();
+
+                        imgRef = uri.toString();
+
+
+                        usrRF.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for(DataSnapshot dss : snapshot.getChildren()){
+                                    String key = dss.getKey();
+
+                                    Map<String, Object> updates = new HashMap<String, Object>();
+                                    updates.put("profile_url", imgRef);
+                                    usrRF.child(key).updateChildren(updates);
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                Toast.makeText(getApplicationContext(), "Errooooooor", Toast.LENGTH_LONG).show();
+                            }
+                        });
 
                     }
                 });
@@ -222,6 +247,7 @@ public class User_Profile extends AppCompatActivity {
                         phoneNum = keyid.child("pnumber").getValue(String.class);
                         catG = keyid.child("spin").getValue(String.class);
                         paSS = keyid.child("pword").getValue(String.class);
+                        imgRef = keyid.child("profile_url").getValue(String.class);
 
 
                         full_name.setText(fullName);
@@ -232,8 +258,8 @@ public class User_Profile extends AppCompatActivity {
                         category.setText(catG);
                         pass.setText(paSS);
 
-                        String id = reference.push().getKey();
-                        reference.child(id).child("url").setValue(try_url);
+                        Picasso.get().load(imgRef).fit().into(profPic);
+
 
                     }
                 }

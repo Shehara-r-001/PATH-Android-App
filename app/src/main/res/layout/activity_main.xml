@@ -18,7 +18,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/path_logo_splash"
+            android:src="@drawable/path_blue"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"/>
     </LinearLayout>
@@ -34,31 +34,29 @@
         <TextView
             android:id="@+id/login_btn_in_main"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/textview_login_bg"
-            android:paddingLeft="30dp"
-            android:gravity="center_vertical"
+            android:layout_height="50dp"
+            android:background="@drawable/search_image"
+            android:gravity="center"
             android:text="LOGIN"
             android:fontFamily="@font/alegreya"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="30sp"
             android:clickable="true"
-            android:layout_marginTop="40dp"></TextView>
+            android:layout_marginTop="40dp"/>
 
 
         <TextView
             android:id="@+id/reg_btn_in_main"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/textview_login_bg"
-            android:gravity="center_vertical"
-            android:paddingLeft="30dp"
+            android:layout_height="50dp"
+            android:background="@drawable/search_image"
+            android:gravity="center"
             android:text="REGISTER"
             android:fontFamily="@font/alegreya"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="30sp"
             android:clickable="true"
-            android:layout_marginTop="10dp"></TextView>
+            android:layout_marginTop="10dp"/>
 
 
         <TextView
@@ -69,11 +67,10 @@
             android:background="#00000000"
             android:clickable="true"
             android:gravity="center"
-            android:paddingLeft="30dp"
             android:text="Want to find Creators..?"
             android:fontFamily="@font/alegreya"
             android:textColor="@color/black"
-            android:textSize="20sp"></TextView>
+            android:textSize="20sp"/>
 
 
     </LinearLayout>

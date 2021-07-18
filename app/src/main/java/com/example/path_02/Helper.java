@@ -12,7 +12,7 @@ public class Helper {
 
 
 
-    public Helper(String fname, String uname, String email, String pnumber, String pword, String rePword, String spin /*, String prof_url*/) {
+    public Helper(String fname, String uname, String email, String pnumber, String pword, String rePword, String spin , String prof_url) {
         this.fname = fname;
         this.uname = uname;
         this.email = email;
@@ -20,7 +20,7 @@ public class Helper {
         this.pword = pword;
         this.rePword = rePword;
         this.spin = spin;
-        //this.prof_url = prof_url;
+        this.prof_url = prof_url;
 
 
     }

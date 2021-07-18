@@ -13,7 +13,7 @@
         android:id="@+id/logo_login"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/path_logo_splash"
+        android:src="@drawable/path_red"
         android:layout_marginTop="50dp"/>
 
     <TextView

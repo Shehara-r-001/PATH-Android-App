@@ -18,7 +18,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:paddingLeft="20dp"
-        android:src="@drawable/path_logo_splash"/>
+        android:src="@drawable/path_green"/>
 
     <TextView
         android:id="@+id/txt01_signup"
