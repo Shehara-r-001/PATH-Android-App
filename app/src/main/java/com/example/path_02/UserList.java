@@ -19,12 +19,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.annotations.NotNull;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -116,7 +119,7 @@ public class UserList extends AppCompatActivity {
 
                     String searchTxt = searchField.getText().toString();
 
-                    //UserSearch(searchTxt);
+                    UserSearch(searchTxt);
                 }
             });
 
@@ -127,15 +130,57 @@ public class UserList extends AppCompatActivity {
 
 
         }
+        public class UserViewHolder extends RecyclerView.ViewHolder{
+
+            View mView;
+            public UserViewHolder(@NonNull View itemView) {
+                super(itemView);
+                mView = itemView;
+            }
+
+            public void setDetails( String fullname, String categ, String prof){
+                TextView full_name = (TextView) findViewById(R.id.username_view);
+                TextView category = (TextView) findViewById(R.id.category_view);
+                ImageView profile = (ImageView) findViewById(R.id.userimage);
+
+                full_name.setText(fullname);
+                category.setText(categ);
+                Picasso.get().load(prof).fit().into(profile);
+            }
+        }
 
 
-//    private void UserSearch(String searchTxt) {
-//
-//        Query searchQuery = reference.orderByChild("spin").startAt(searchTxt).endAt(searchTxt + "\uf8ff");
-//
-//
-//
-//    }
+    private void UserSearch(String searchTxt) {
+
+        Query searchQuery = reference.orderByChild("spin").startAt(searchTxt).endAt(searchTxt + "\uf8ff");
+        
+
+        searchQuery.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+                    for (DataSnapshot dat : snapshot.getChildren()) {
+                        Helper helper = dat.getValue(Helper.class);
+
+                        list.add(helper);
+
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+
+
+
+
+
 
 
 }

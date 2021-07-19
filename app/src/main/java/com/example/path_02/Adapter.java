@@ -6,9 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
@@ -17,6 +20,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     Context context;
     ArrayList<Helper> list;
+
+    String prof_img;
 
     public Adapter(Context context, ArrayList<Helper> list) {
         this.context = context;
@@ -37,10 +42,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         String fname_txt = list.get(position).getFname();
         String catg_txt = list.get(position).getSpin();
-        //int prof_img = list.get(position).getProfilePic();
+        prof_img = list.get(position).getProf_url();
 
 
-        holder.setData(fname_txt, catg_txt /* , prof_img*/);
+        holder.setData(fname_txt, catg_txt , prof_img);
 
     }
 
@@ -63,10 +68,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         }
 
-        public void setData( String fname_txt, String catg_txt /*, int prof_img*/) {
+        public void setData( String fname_txt, String catg_txt , String prof_img) {
             f_name.setText(fname_txt);
             catG.setText(catg_txt);
+            Picasso.get().load(prof_img).fit().into(profile_pic);
            // profile_pic.setImageResource(prof_img);
+
         }
     }
 }

@@ -25,6 +25,8 @@
         <activity android:name=".User_Profile" />
         <activity android:name=".Categories" />
         <activity android:name=".Path" />
+        <activity android:name=".AddPath" />
+
 
         <meta-data
             android:name="preloaded_fonts"
