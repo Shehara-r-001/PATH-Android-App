@@ -45,8 +45,8 @@ public class User_Profile extends AppCompatActivity {
     ProgressBar progressBar;
     DatabaseReference reference, usrRF;
     StorageReference storageReference;
-    FirebaseAuth fAUTH;
-    String email_i, try_url;
+    FirebaseAuth mAuth;
+    String email_i, try_url, uid;
     FirebaseUser usr;
 
 
@@ -59,7 +59,7 @@ public class User_Profile extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.user_profile_userview);
 
-        FirebaseAuth mAuth;
+        //FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
 
         reference = FirebaseDatabase.getInstance().getReference();
@@ -70,7 +70,7 @@ public class User_Profile extends AppCompatActivity {
 
 
 
-        final StorageReference profref = storageReference.child("users/"+ email_i +"/profile.jpg");
+        final StorageReference profref = storageReference.child("users/"+ mAuth.getCurrentUser().getUid() +"/profile.jpg");
         profref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {           // to load directly without delay after restart
@@ -170,7 +170,7 @@ public class User_Profile extends AppCompatActivity {
     private void UploadProfPic(Uri image_uri) {
 
 //        final StorageReference strRef = storageReference.child("profile_picture").child(fAUTH.getUid());
-        final StorageReference strRef = storageReference.child("users/"+ email_i +"/profile.jpg");
+        final StorageReference strRef = storageReference.child("users/"+ mAuth.getCurrentUser().getUid() +"/profile.jpg");
         strRef.putFile(image_uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -183,26 +183,36 @@ public class User_Profile extends AppCompatActivity {
 
                         imgRef = uri.toString();
 
-
-                        usrRF.addValueEventListener(new ValueEventListener() {
+                        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+                        Map<String, Object> updates = new HashMap<String, Object>();
+                        updates.put("profile_url", imgRef);
+                        usrRF.child(uid).updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                for(DataSnapshot dss : snapshot.getChildren()){
-                                    String key = dss.getKey();
-
-                                    Map<String, Object> updates = new HashMap<String, Object>();
-                                    updates.put("profile_url", imgRef);
-                                    usrRF.child(key).updateChildren(updates);
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                Toast.makeText(getApplicationContext(), "Errooooooor", Toast.LENGTH_LONG).show();
+                            public void onSuccess(Void unused) {
+                                Toast.makeText(getApplicationContext(), "Upload Complete", Toast.LENGTH_LONG).show();
                             }
                         });
+
+
+//                        usrRF.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                for(DataSnapshot dss : snapshot.getChildren()){
+//                                    String key = dss.getKey();
+//
+//                                    Map<String, Object> updates = new HashMap<String, Object>();
+//                                    updates.put("profile_url", imgRef);
+//                                    usrRF.child(key).updateChildren(updates);
+//
+//                                }
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
+//                            }
+//                        });
 
                     }
                 });
@@ -218,37 +228,20 @@ public class User_Profile extends AppCompatActivity {
 
 
     private void ImportData(){
-//        Intent intent = getIntent();
-//        String fullNAME = intent.getStringExtra("fname");
-//        String userNAME = intent.getStringExtra("uname");
-//        String eMAIL = intent.getStringExtra("email");
-//        String pNUM = intent.getStringExtra("pnumber");
-//        String catG = intent.getStringExtra("spin");
-//        String passW = intent.getStringExtra("pword");
-//
-//        full_name.setText(fullNAME);
-//        user_name.setText(userNAME);
-//        user_name2.setText(userNAME);
-//        email.setText(eMAIL);
-//        phone_num.setText(pNUM);
-//        category.setText(catG);
-//        pass.setText(passW);
 
         usrRF.addValueEventListener(new ValueEventListener() {
+
             String fullName, userName, userName2, eMail, phoneNum, catG, paSS;
             @Override
-            public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-                for (DataSnapshot keyid : snapshot.getChildren()){
-                    if(keyid.child("email").getValue().equals(email_i)){
-                        fullName = keyid.child("fname").getValue(String.class);
-                        userName = keyid.child("uname").getValue(String.class);
-                        userName2 = keyid.child("uname").getValue(String.class);
-                        eMail = keyid.child("email").getValue(String.class);
-                        phoneNum = keyid.child("pnumber").getValue(String.class);
-                        catG = keyid.child("spin").getValue(String.class);
-                        paSS = keyid.child("pword").getValue(String.class);
-                        imgRef = keyid.child("profile_url").getValue(String.class);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
 
+                fullName = snapshot.child("fname").getValue(String.class);
+                userName = snapshot.child("uname").getValue(String.class);
+                userName2 = snapshot.child("uname").getValue(String.class);
+                eMail = snapshot.child("email").getValue(String.class);
+                phoneNum = snapshot.child("pnumber").getValue(String.class);
+                catG = snapshot.child("spin").getValue(String.class);
+                paSS = snapshot.child("pword").getValue(String.class);
 
                         full_name.setText(fullName);
                         user_name.setText(userName);
@@ -260,16 +253,58 @@ public class User_Profile extends AppCompatActivity {
 
                         Picasso.get().load(imgRef).fit().into(profPic);
 
-
-                    }
-                }
             }
 
             @Override
-            public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+
+
+//        usrRF.addValueEventListener(new ValueEventListener() {
+//
+//            String fullName, userName, userName2, eMail, phoneNum, catG, paSS;
+//
+//
+//
+//            @Override
+//            public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
+//                for (DataSnapshot keyid : snapshot.getChildren()){
+//
+//
+//
+//                    if(keyid.child("email").getValue().equals(email_i)){
+//                        fullName = keyid.child("fname").getValue(String.class);
+//                        userName = keyid.child("uname").getValue(String.class);
+//                        userName2 = keyid.child("uname").getValue(String.class);
+//                        eMail = keyid.child("email").getValue(String.class);
+//                        phoneNum = keyid.child("pnumber").getValue(String.class);
+//                        catG = keyid.child("spin").getValue(String.class);
+//                        paSS = keyid.child("pword").getValue(String.class);
+//                        imgRef = keyid.child("profile_url").getValue(String.class);
+//
+//
+//                        full_name.setText(fullName);
+//                        user_name.setText(userName);
+//                        user_name2.setText(userName2);
+//                        email.setText(eMail);
+//                        phone_num.setText(phoneNum);
+//                        category.setText(catG);
+//                        pass.setText(paSS);
+//
+//                        Picasso.get().load(imgRef).fit().into(profPic);
+//
+//
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
+//
+//            }
+//        });
 
     }
 

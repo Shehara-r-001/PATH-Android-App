@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
         f_auth = FirebaseAuth.getInstance();
 
         if (f_auth.getCurrentUser() != null) {
-            updateUI(f_auth.getCurrentUser());
+            updateUI(f_auth.getCurrentUser().getUid());
         }
 //        if(auth.getCurrentUser() != null){
 //            startActivity(new Intent(Login.this, User_Profile.class));
@@ -106,7 +106,14 @@ public class Login extends AppCompatActivity {
 //                    startActivity(intent);
                     Log.d("Login", "signInWithEmail:success");
                     FirebaseUser user = f_auth.getCurrentUser();
-                    updateUI(user);
+
+                    Intent intent = new Intent(Login.this, User_Profile.class);
+                    intent.putExtra("email", user.getEmail());
+                    //Log.v("Data", user.getUid());
+                    String user_id = user.getUid();
+
+
+                    updateUI(user_id);
 
 
                     progressBar.setVisibility(View.GONE);
@@ -165,11 +172,11 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    public void updateUI(FirebaseUser currentUser){
+    public void updateUI(String user_id){
 
         Intent intent = new Intent(Login.this, User_Profile.class);
-        intent.putExtra("email", currentUser.getEmail());
-        Log.v("Data", currentUser.getUid());
+        //intent.putExtra("email", user.);
+//        Log.v("Data", currentUser.getUid());
         startActivity(intent);
     }
 

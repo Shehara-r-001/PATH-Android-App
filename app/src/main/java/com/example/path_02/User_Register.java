@@ -141,7 +141,9 @@ public class User_Register extends AppCompatActivity {
                                         if(task.isSuccessful()){
 
                                             FirebaseUser user = auth.getCurrentUser();
-                                            updateUI(user);
+                                            String userID = user.getUid();
+                                            reference.child(userID).setValue(helper);
+                                            //updateUI(user);
 
                                             startActivity(new Intent(User_Register.this, Login.class));
                                             Toast.makeText(getApplicationContext(), "User has been created. Please login to continue..", Toast.LENGTH_SHORT).show();
@@ -171,10 +173,10 @@ public class User_Register extends AppCompatActivity {
     }
 
 
-    public void updateUI(FirebaseUser user){
-        String id = reference.push().getKey();
-        reference.child(id).setValue(helper);
-    }
+//    public void updateUI(FirebaseUser user){
+//        String id = reference.push().getKey();
+//        reference.child(id).setValue(helper);
+//    }
 
 
     private Boolean validateFname(){
