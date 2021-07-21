@@ -38,6 +38,7 @@ import java.util.Map;
 
 public class User_Profile extends AppCompatActivity {
 
+    private static final String TAG = "TAG";
     TextView full_name, user_name, category;
     //TextInputLayout email, phone_num, pass;
     TextView user_name2, email, phone_num, pass;
@@ -51,6 +52,18 @@ public class User_Profile extends AppCompatActivity {
 
 
     String userNAME, eMAIL, pWORD, pNUM, url, imgRef;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (mAuth.getCurrentUser() != null) {
+            ImportData();
+        }
+        else if (mAuth.getCurrentUser() == null){
+            startActivity(new Intent(User_Profile.this, Login.class));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +104,8 @@ public class User_Profile extends AppCompatActivity {
         Intent in = getIntent();
         email_i = in.getStringExtra("email");
 
-        ImportData();
+
+
 
         TextView to_path = (TextView) findViewById(R.id.path_prof);
         to_path.setOnClickListener(new View.OnClickListener() {
@@ -131,6 +145,7 @@ public class User_Profile extends AppCompatActivity {
 
             }
         });
+
         Button logout = (Button) findViewById(R.id.logout);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,37 +244,43 @@ public class User_Profile extends AppCompatActivity {
 
     private void ImportData(){
 
-        usrRF.addValueEventListener(new ValueEventListener() {
+            usrRF.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                //should be usrRF
+                String fullName, userName, userName2, eMail, phoneNum, catG, paSS;
 
-            String fullName, userName, userName2, eMail, phoneNum, catG, paSS;
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                fullName = snapshot.child("fname").getValue(String.class);
-                userName = snapshot.child("uname").getValue(String.class);
-                userName2 = snapshot.child("uname").getValue(String.class);
-                eMail = snapshot.child("email").getValue(String.class);
-                phoneNum = snapshot.child("pnumber").getValue(String.class);
-                catG = snapshot.child("spin").getValue(String.class);
-                paSS = snapshot.child("pword").getValue(String.class);
 
-                        full_name.setText(fullName);
-                        user_name.setText(userName);
-                        user_name2.setText(userName2);
-                        email.setText(eMail);
-                        phone_num.setText(phoneNum);
-                        category.setText(catG);
-                        pass.setText(paSS);
+                    fullName = snapshot.child("fname").getValue().toString();
+                    userName = snapshot.child("uname").getValue().toString();
+                    userName2 = snapshot.child("uname").getValue().toString();
+                    eMail = snapshot.child("email").getValue().toString();
+                    phoneNum = snapshot.child("pnumber").getValue().toString();
+                    catG = snapshot.child("spin").getValue().toString();
+                    paSS = snapshot.child("pword").getValue().toString();
 
-                        Picasso.get().load(imgRef).fit().into(profPic);
+                    //Toast.makeText(getApplicationContext(), fullName, Toast.LENGTH_LONG).show();
 
-            }
+                    full_name.setText(fullName);
+                    user_name.setText(userName);
+                    user_name2.setText(userName2);
+                    email.setText(eMail);
+                    phone_num.setText(phoneNum);
+                    category.setText(catG);
+                    pass.setText(paSS);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+                    Picasso.get().load(imgRef).fit().into(profPic);
 
-            }
-        });
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                    Log.d(TAG, error.getMessage());
+                }
+            });
 
 
 //        usrRF.addValueEventListener(new ValueEventListener() {

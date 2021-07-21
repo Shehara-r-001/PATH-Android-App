@@ -38,6 +38,17 @@ public class Login extends AppCompatActivity {
 
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (f_auth.getCurrentUser() != null) {
+            finish();
+            updateUI(f_auth.getCurrentUser().getUid());
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -46,9 +57,9 @@ public class Login extends AppCompatActivity {
 
         f_auth = FirebaseAuth.getInstance();
 
-        if (f_auth.getCurrentUser() != null) {
-            updateUI(f_auth.getCurrentUser().getUid());
-        }
+
+
+
 //        if(auth.getCurrentUser() != null){
 //            startActivity(new Intent(Login.this, User_Profile.class));
 //        }
@@ -107,6 +118,7 @@ public class Login extends AppCompatActivity {
                     Log.d("Login", "signInWithEmail:success");
                     FirebaseUser user = f_auth.getCurrentUser();
 
+                    finish();
                     Intent intent = new Intent(Login.this, User_Profile.class);
                     intent.putExtra("email", user.getEmail());
                     //Log.v("Data", user.getUid());

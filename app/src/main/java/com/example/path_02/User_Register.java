@@ -144,10 +144,11 @@ public class User_Register extends AppCompatActivity {
                                             String userID = user.getUid();
                                             reference.child(userID).setValue(helper);
                                             //updateUI(user);
+                                            finish();
 
                                             startActivity(new Intent(User_Register.this, Login.class));
-                                            Toast.makeText(getApplicationContext(), "User has been created. Please login to continue..", Toast.LENGTH_SHORT).show();
-                                            finish();
+                                            Toast.makeText(getApplicationContext(), "User has been created successfully.", Toast.LENGTH_SHORT).show();
+                                            //finish();
 
                                         }
                                         else{

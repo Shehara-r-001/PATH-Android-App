@@ -1,5 +1,6 @@
 package com.example.path_02;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -9,11 +10,20 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class AddPath extends AppCompatActivity {
 
@@ -21,7 +31,9 @@ public class AddPath extends AppCompatActivity {
     DatePicker picker;
     Button add_new;
     FirebaseDatabase root;
-    DatabaseReference reference;
+    DatabaseReference reference, path_ref;
+    FirebaseAuth auth;
+    String uid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +44,10 @@ public class AddPath extends AppCompatActivity {
 
         root = FirebaseDatabase.getInstance();
         reference = root.getReference("users");
+        path_ref = reference.child(auth.getCurrentUser().getUid()).child("PATH");
+        auth = FirebaseAuth.getInstance();
+        uid = auth.getCurrentUser().getUid();
+
 
         add_new = (Button) findViewById(R.id.done_addTOpath);
         picker = (DatePicker) findViewById(R.id.date_picker);
@@ -48,6 +64,40 @@ public class AddPath extends AppCompatActivity {
                 else{
                     Toast.makeText(getApplicationContext(), picker.getDayOfMonth() + "-" + picker.getMonth() + "-" + picker.getYear(), Toast.LENGTH_SHORT).show();
                 // redirect to path
+
+                    String ach = milestone.getEditText().getText().toString().trim();
+                    int day = picker.getDayOfMonth();
+                    int month = picker.getMonth();
+                    int year = picker.getYear();
+                    String date = day + "/" + month + "/" + year ;
+
+                    path_ref.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+
+                            Map<String, Object> updates = new HashMap<String, Object>();
+                            updates.put("Ach 01 : ", ach);
+                            updates.put("Date", date);
+                            path_ref.updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    Toast.makeText(getApplicationContext(), "Your achievement has been updated.", Toast.LENGTH_LONG).show();
+                                    finish();
+                                    startActivity(new Intent(AddPath.this, Path.class));
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
+
+
+
                 }
 
             }

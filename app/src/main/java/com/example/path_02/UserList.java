@@ -19,7 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.firebase.ui.database.FirebaseRecyclerAdapter;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
+//import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,6 +40,7 @@ public class UserList extends AppCompatActivity {
     DatabaseReference reference;
     ArrayList<Helper> list;
     Adapter adapter;
+    FirebaseAuth auth;
 
     Button anC, bt, dec, fd;
 
@@ -52,6 +54,7 @@ public class UserList extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.User_list);
         reference = FirebaseDatabase.getInstance().getReference("users");
+        auth = FirebaseAuth.getInstance();
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -64,13 +67,13 @@ public class UserList extends AppCompatActivity {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-                for (DataSnapshot key : snapshot.getChildren()) {
+                //for (DataSnapshot key : snapshot.getChildren()) {
 
-                    Helper helper = key.getValue(Helper.class);
+                    Helper helper = snapshot.getValue(Helper.class);
                     list.add(helper);
 
                     adapter.notifyDataSetChanged();
-                }
+                //}
             }
 
             @Override
