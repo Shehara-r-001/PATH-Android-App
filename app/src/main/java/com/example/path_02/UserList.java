@@ -37,12 +37,14 @@ public class UserList extends AppCompatActivity {
     private EditText searchField;
 
     RecyclerView recyclerView;
-    DatabaseReference reference;
+    DatabaseReference reference, user_ref;
     ArrayList<Helper> list;
     Adapter adapter;
     FirebaseAuth auth;
+    String uid;
 
     Button anC, bt, dec, fd;
+
 
 
     @Override
@@ -52,9 +54,13 @@ public class UserList extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_user_list);
 
+
         recyclerView = findViewById(R.id.User_list);
-        reference = FirebaseDatabase.getInstance().getReference("users");
+        reference = FirebaseDatabase.getInstance().getReference();
+        user_ref = reference.child("users");
+
         auth = FirebaseAuth.getInstance();
+
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -64,16 +70,16 @@ public class UserList extends AppCompatActivity {
         adapter = new Adapter(this, list);
         recyclerView.setAdapter(adapter);
 
-        reference.addValueEventListener(new ValueEventListener() {
+        user_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-                //for (DataSnapshot key : snapshot.getChildren()) {
+                for (DataSnapshot key : snapshot.getChildren()) {
 
-                    Helper helper = snapshot.getValue(Helper.class);
+                    Helper helper = key.getValue(Helper.class);
                     list.add(helper);
 
                     adapter.notifyDataSetChanged();
-                //}
+                }
             }
 
             @Override

@@ -4,7 +4,7 @@ import android.widget.ImageView;
 
 public class Helper {
 
-    String fname, uname, email, pnumber, pword, rePword, spin, prof_url;
+    String fname, uname, email, pnumber, pword, rePword, spin, profile_url, uid;
 
     public Helper(){           //avoid errors in firebase
 
@@ -12,7 +12,7 @@ public class Helper {
 
 
 
-    public Helper(String fname, String uname, String email, String pnumber, String pword, String rePword, String spin , String prof_url) {
+    public Helper(String fname, String uname, String email, String pnumber, String pword, String rePword, String spin , String profile_url, String uid) {
         this.fname = fname;
         this.uname = uname;
         this.email = email;
@@ -20,17 +20,26 @@ public class Helper {
         this.pword = pword;
         this.rePword = rePword;
         this.spin = spin;
-        this.prof_url = prof_url;
+        this.profile_url = profile_url;
+        this.uid = uid;
 
 
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getProf_url() {
-        return prof_url;
+        return profile_url;
     }
 
     public void setProf_url(String prof_url) {
-        this.prof_url = prof_url;
+        this.profile_url = prof_url;
     }
 
     public String getFname() {

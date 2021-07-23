@@ -38,7 +38,8 @@ public class User_Register extends AppCompatActivity {
     FirebaseAuth auth;
     Helper helper;
 
-    String e_mail, p_word, profUrl, prof_url;
+
+    String e_mail, p_word, profUrl, prof_url, uID;
 
 
     FirebaseDatabase rootNode;
@@ -128,7 +129,10 @@ public class User_Register extends AppCompatActivity {
                     p_word = reg_pword.getEditText().getText().toString();
                     String re_p_word = reg_Rpword.getEditText().getText().toString();
                     String catg_spinner = spinner.getSelectedItem().toString();
-                    helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner, prof_url);
+
+                    uID = auth.getCurrentUser().getUid();
+
+                    helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner, prof_url, uID);
 
 
 

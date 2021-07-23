@@ -2,6 +2,7 @@ package com.example.path_02;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -34,6 +35,15 @@ public class AddPath extends AppCompatActivity {
     DatabaseReference reference, path_ref;
     FirebaseAuth auth;
     String uid;
+    private static final String TAG = "TAG";
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if ( auth.getCurrentUser().getUid() != null){
+            uid = auth.getCurrentUser().getUid();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +52,11 @@ public class AddPath extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.addpath_act);
 
+
+
         root = FirebaseDatabase.getInstance();
         reference = root.getReference("users");
-        path_ref = reference.child(auth.getCurrentUser().getUid()).child("PATH");
+        path_ref = root.getReference("PATH");
         auth = FirebaseAuth.getInstance();
         uid = auth.getCurrentUser().getUid();
 
@@ -57,12 +69,11 @@ public class AddPath extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 if( !Validate_text() ){
                     return;
                 }
                 else{
-                    Toast.makeText(getApplicationContext(), picker.getDayOfMonth() + "-" + picker.getMonth() + "-" + picker.getYear(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), picker.getDayOfMonth() + "-" + picker.getMonth() + "-" + picker.getYear(), Toast.LENGTH_SHORT).show();
                 // redirect to path
 
                     String ach = milestone.getEditText().getText().toString().trim();
@@ -71,33 +82,32 @@ public class AddPath extends AppCompatActivity {
                     int year = picker.getYear();
                     String date = day + "/" + month + "/" + year ;
 
-                    path_ref.addValueEventListener(new ValueEventListener() {
+                    path_ref.child(uid).child("PATH").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
 
 
-                            Map<String, Object> updates = new HashMap<String, Object>();
-                            updates.put("Ach 01 : ", ach);
-                            updates.put("Date", date);
-                            path_ref.updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Toast.makeText(getApplicationContext(), "Your achievement has been updated.", Toast.LENGTH_LONG).show();
-                                    finish();
-                                    startActivity(new Intent(AddPath.this, Path.class));
-                                }
-                            });
+                                Map<String, Object> updates = new HashMap<String, Object>();
+                                updates.put("Achievement ", ach);
+                                updates.put("Date ", date);
+
+                                final String key = root.getReference().push().getKey();
+
+                                path_ref.child(uid).child(key).updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void unused) {
+                                        Toast.makeText(getApplicationContext(), "Your achievement has been updated.", Toast.LENGTH_LONG).show();
+                                        finish();
+                                        startActivity(new Intent(AddPath.this, Path.class));
+                                    }
+                                });
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
-
+                            Log.v(TAG, error.getMessage());
                         }
                     });
-
-
-
-
                 }
 
             }

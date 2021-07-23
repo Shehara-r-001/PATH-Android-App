@@ -21,7 +21,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     Context context;
     ArrayList<Helper> list;
 
-    String prof_img;
+    //String prof_img;
 
     public Adapter(Context context, ArrayList<Helper> list) {
         this.context = context;
@@ -42,7 +42,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         String fname_txt = list.get(position).getFname();
         String catg_txt = list.get(position).getSpin();
-        prof_img = list.get(position).getProf_url();
+        String prof_img = list.get(position).getProf_url();
 
 
         holder.setData(fname_txt, catg_txt , prof_img);
