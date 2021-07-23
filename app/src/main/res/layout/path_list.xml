@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    android:padding="10dp">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/main_card_pathlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/dot"
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@drawable/dot"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/achievement"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Achievement"
+                android:textSize="20dp"
+                android:fontFamily="@font/alegreya"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/dot"/>
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Achievement"
+                android:textSize="15dp"
+                android:fontFamily="@font/alegreya"
+                android:textColor="@color/black"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="20dp"
+                android:layout_toRightOf="@id/dot"
+                android:layout_below="@id/achievement"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</ScrollView>

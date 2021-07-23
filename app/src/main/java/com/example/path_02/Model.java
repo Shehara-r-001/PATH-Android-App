@@ -1,29 +1,28 @@
 package com.example.path_02;
 
-import android.widget.ImageView;
-import android.widget.TextView;
-
 public class Model {
 
-    private String full_name, category;
-    private int profilePic;
+    String Achievement, Date;
 
+    public Model(String achievment, String date) {
 
-
-    public Model (String full_name, String category, int profilePic){
-        this.full_name = full_name;
-        this.category = category;
-        this.profilePic = profilePic;
-    }
-    public String getFull_name() {
-        return full_name;
+        this.Achievement = achievment;
+        this.Date = date;
     }
 
-    public String getCategory() {
-        return category;
+    public String getAchievement() {
+        return Achievement;
     }
 
-    public int getProfilePic() {
-        return profilePic;
+    public void setAchievement(String achievment) {
+        this.Achievement = achievment;
+    }
+
+    public String getDate() {
+        return Date;
+    }
+
+    public void setDate(String date) {
+        this.Date = date;
     }
 }
