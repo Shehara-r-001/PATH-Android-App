@@ -14,7 +14,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +25,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,32 +86,51 @@ public class AddPath extends AppCompatActivity {
                     int year = picker.getYear();
                     String date = day + "/" + month + "/" + year ;
 
-                    path_ref.child(uid).child("PATH").addValueEventListener(new ValueEventListener() {
+
+                    Map<String , Object> updates = new HashMap<String, Object>();
+                    updates.put("Achievement", ach);
+                    updates.put("Date", date);
+
+                    final String key = reference.push().getKey();
+                    reference.child(uid).child("PATH").child(key).updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-                                Map<String, Object> updates = new HashMap<String, Object>();
-                                updates.put("Achievement ", ach);
-                                updates.put("Date ", date);
-
-                                final String key = root.getReference().push().getKey();
-
-                                path_ref.child(uid).child(key).updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void unused) {
-                                        Toast.makeText(getApplicationContext(), "Your achievement has been updated.", Toast.LENGTH_LONG).show();
-                                        finish();
-                                        startActivity(new Intent(AddPath.this, Path.class));
-                                    }
-                                });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            Log.v(TAG, error.getMessage());
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(AddPath.this, "Updated", Toast.LENGTH_SHORT).show();
+                            finish();
+                            startActivity(new Intent(AddPath.this, Path.class));
                         }
                     });
+
+//                    reference.child(uid).addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//                                Map<String, Object> updates = new HashMap<String, Object>();
+//                                updates.put("Achievement ", ach);
+//                                updates.put("Date ", date);
+//
+//                                final String key = reference.push().getKey();
+//                                //final Date current_time = Calendar.getInstance().getTime();
+//
+//                                reference.child(uid).child("PATH").child(key).updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                                    @Override
+//                                    public void onSuccess(Void unused) {
+//                                        Toast.makeText(getApplicationContext(), "Your achievement has been updated.", Toast.LENGTH_LONG).show();
+//
+//                                        //Intent intent = new Intent().putExtra("pushed_key", key);
+//                                        finish();
+//                                        startActivity(new Intent(AddPath.this, Path.class));
+//
+//                                    }
+//                                });
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull DatabaseError error) {
+//                            Log.v(TAG, error.getMessage());
+//                        }
+//                    });
                 }
 
             }

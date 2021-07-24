@@ -119,7 +119,7 @@ public class User_Profile extends AppCompatActivity {
         to_find.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent find_act = new Intent(User_Profile.this, Categories.class);
+                Intent find_act = new Intent(User_Profile.this, UserList.class);
                 startActivity(find_act);
             }
         });

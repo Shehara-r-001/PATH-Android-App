@@ -46,6 +46,12 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
 
         holder.setData(fname_txt, catg_txt , prof_img);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(), "Clickedddddd", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 
@@ -66,6 +72,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             catG = itemView.findViewById(R.id.category_view);
             profile_pic = itemView.findViewById(R.id.userimage);
 
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(v.getContext(), "Önclick.....", Toast.LENGTH_LONG).show();
+//                }
+//            });
+
         }
 
         public void setData( String fname_txt, String catg_txt , String prof_img) {
@@ -75,5 +88,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
            // profile_pic.setImageResource(prof_img);
 
         }
+
     }
 }

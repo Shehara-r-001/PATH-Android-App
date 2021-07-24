@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PATH_02">
-        <activity android:name=".UserList"></activity>
+        <activity android:name=".UserProfile_VV"></activity>
+        <activity android:name=".UserList" />
         <activity android:name=".Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,7 +27,6 @@
         <activity android:name=".Categories" />
         <activity android:name=".Path" />
         <activity android:name=".AddPath" />
-
 
         <meta-data
             android:name="preloaded_fonts"
