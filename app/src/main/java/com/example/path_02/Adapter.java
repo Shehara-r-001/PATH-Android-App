@@ -42,16 +42,16 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
         String fname_txt = list.get(position).getFname();
         String catg_txt = list.get(position).getSpin();
-        String prof_img = list.get(position).getProf_url();
+        String prof_img = list.get(position).getProfile_url();
 
 
         holder.setData(fname_txt, catg_txt , prof_img);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(v.getContext(), "Clickedddddd", Toast.LENGTH_LONG).show();
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(v.getContext(), "Clickedddddd", Toast.LENGTH_LONG).show();
+//            }
+//        });
 
     }
 

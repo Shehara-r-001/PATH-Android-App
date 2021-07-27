@@ -88,8 +88,8 @@ public class AddPath extends AppCompatActivity {
 
 
                     Map<String , Object> updates = new HashMap<String, Object>();
-                    updates.put("Achievement", ach);
-                    updates.put("Date", date);
+                    updates.put("achievement", ach);
+                    updates.put("date", date);
 
                     final String key = reference.push().getKey();
                     reference.child(uid).child("PATH").child(key).updateChildren(updates).addOnCompleteListener(new OnCompleteListener<Void>() {

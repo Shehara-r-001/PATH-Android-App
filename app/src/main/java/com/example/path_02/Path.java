@@ -36,13 +36,13 @@ public class Path extends AppCompatActivity {
     final static String TAG = "TAG";
 
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if( auth.getCurrentUser() != null){
-            user_id = auth.getCurrentUser().getUid();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        if( auth.getCurrentUser() != null){
+//            user_id = auth.getCurrentUser().getUid();
+//        }
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class Path extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference();
         user_reference = reference.child("users");
-        path_reference = user_reference.child(auth.getCurrentUser().getUid()).child("PATH");
+        //path_reference = user_reference.child(auth.getCurrentUser().getUid()).child("PATH");
 
         auth = FirebaseAuth.getInstance();
 
@@ -67,7 +67,7 @@ public class Path extends AppCompatActivity {
         path_adapter = new PATH_Adapter(this, arrayList);
         recyclerView.setAdapter(path_adapter);
 
-        path_reference.addValueEventListener(new ValueEventListener() {
+        user_reference.child(auth.getCurrentUser().getUid()).child("PATH").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -76,8 +76,10 @@ public class Path extends AppCompatActivity {
                             Model model = key.getValue(Model.class);
                             arrayList.add(model);
 
+                            Log.d("aaaaaaaaaaaaaaaaaaaaa", model.getAchievement());
+
                             path_adapter.notifyDataSetChanged();
-                            Log.d(TAG, user_id);
+                            //Log.d(TAG, user_id);
                     }
             }
 

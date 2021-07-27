@@ -1,28 +1,36 @@
 package com.example.path_02;
 
+import com.google.firebase.database.PropertyName;
+
 public class Model {
 
-    String Achievement, Date;
+    String achievement, date;
 
-    public Model(String achievment, String date) {
+    public Model(){
 
-        this.Achievement = achievment;
-        this.Date = date;
     }
 
+    public Model(String achievement, String date) {
+
+        this.achievement = achievement;
+        this.date = date;
+    }
+
+    //@PropertyName("Achievement")
     public String getAchievement() {
-        return Achievement;
+        return achievement;
     }
 
-    public void setAchievement(String achievment) {
-        this.Achievement = achievment;
+    public void setAchievement(String achievement) {
+        this.achievement = achievement;
     }
 
+    //@PropertyName("Date")
     public String getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(String date) {
-        this.Date = date;
+        this.date = date;
     }
 }

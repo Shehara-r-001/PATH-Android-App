@@ -135,8 +135,6 @@ public class User_Register extends AppCompatActivity {
                     helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner, prof_url, uID);
 
 
-
-
                             if (p_word.equals(re_p_word)) {
 
                                 auth.createUserWithEmailAndPassword(e_mail, p_word).addOnCompleteListener(new OnCompleteListener<AuthResult>() {

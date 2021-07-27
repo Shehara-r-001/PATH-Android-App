@@ -34,12 +34,12 @@ public class Helper {
         this.uid = uid;
     }
 
-    public String getProf_url() {
+    public String getProfile_url() {
         return profile_url;
     }
 
-    public void setProf_url(String prof_url) {
-        this.profile_url = prof_url;
+    public void setProf_url(String profile_url) {
+        this.profile_url = profile_url;
     }
 
     public String getFname() {

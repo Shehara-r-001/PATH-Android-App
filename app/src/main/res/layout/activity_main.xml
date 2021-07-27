@@ -19,7 +19,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/path_blue"
+            android:src="@drawable/path_light_green_blue"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="20dp"/>
 

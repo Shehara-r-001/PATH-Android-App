@@ -89,35 +89,35 @@ public class UserList extends AppCompatActivity {
         });
 
 
-        try {
-            anC.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    reference.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-                            for (DataSnapshot keyA : snapshot.getChildren()) {
-                                if (keyA.child("spin").getValue().equals("Arts n Crafts")) {
-                                    Helper helper = keyA.getValue(Helper.class);
-                                    list.add(helper);
-                                    startActivity(new Intent(UserList.this, UserList.class));
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
-
-                        }
-                    });
-
-                }
-
-            });
-        }catch (Exception e){
-            Toast.makeText(getApplicationContext(), "Noooooooooooo", Toast.LENGTH_LONG).show();
-        }
+//        try {
+//            anC.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                    reference.addValueEventListener(new ValueEventListener() {
+//                        @Override
+//                        public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
+//                            for (DataSnapshot keyA : snapshot.getChildren()) {
+//                                if (keyA.child("spin").getValue().equals("Arts n Crafts")) {
+//                                    Helper helper = keyA.getValue(Helper.class);
+//                                    list.add(helper);
+//                                    startActivity(new Intent(UserList.this, UserList.class));
+//                                }
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
+//
+//                        }
+//                    });
+//
+//                }
+//
+//            });
+//        }catch (Exception e){
+//            Toast.makeText(getApplicationContext(), "Noooooooooooo", Toast.LENGTH_LONG).show();
+//        }
 
 
 

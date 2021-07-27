@@ -45,7 +45,8 @@ public class PATH_Adapter extends RecyclerView.Adapter<PATH_Adapter.PViewHolder>
 
     public class PViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView achievement, dates;
+        private final TextView achievement;
+        private final TextView dates;
 
         public PViewHolder(@NonNull View itemView) {
             super(itemView);

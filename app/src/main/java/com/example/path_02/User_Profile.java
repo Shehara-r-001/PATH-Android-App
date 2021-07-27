@@ -142,6 +142,7 @@ public class User_Profile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                startActivity(new Intent(User_Profile.this, Add_Image.class));
 
             }
         });
