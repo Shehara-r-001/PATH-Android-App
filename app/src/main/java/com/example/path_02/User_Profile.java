@@ -18,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -33,6 +35,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +52,10 @@ public class User_Profile extends AppCompatActivity {
     FirebaseAuth mAuth;
     String email_i, try_url, uid;
     FirebaseUser usr;
+
+    RecyclerView recyclerView;
+    ArrayList<Model_Image> arrayList;
+    Image_Adapter image_adapter;
 
 
     String userNAME, eMAIL, pWORD, pNUM, url, imgRef;
@@ -80,6 +87,33 @@ public class User_Profile extends AppCompatActivity {
         Log.v("USERID", usrRF.getKey());
 
         storageReference = FirebaseStorage.getInstance().getReference();
+
+
+        recyclerView = findViewById(R.id.image_grid);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+
+        arrayList = new ArrayList<>();
+        image_adapter = new Image_Adapter(this, arrayList);
+        recyclerView.setAdapter(image_adapter);
+
+        usrRF.child(mAuth.getCurrentUser().getUid()).child("images").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                for ( DataSnapshot key : snapshot.getChildren()){
+                    Model_Image model_image = key.getValue(Model_Image.class);
+                    arrayList.add(model_image);
+
+                    image_adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
 
@@ -175,7 +209,7 @@ public class User_Profile extends AppCompatActivity {
         if (requestCode == 1000){
             if(resultCode == Activity.RESULT_OK){
                 Uri image_uri = data.getData();
-                //profPic.setImageURI(image_uri);
+                profPic.setImageURI(image_uri);
 
                 UploadProfPic(image_uri);
 
@@ -206,29 +240,21 @@ public class User_Profile extends AppCompatActivity {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getApplicationContext(), "Upload Complete", Toast.LENGTH_LONG).show();
+
+//                                usrRF.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                        String u = snapshot.child("profile_url").getValue().toString();
+//                                        Picasso.get().load(u).fit().into(profPic);
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                    }
+//                                });
                             }
                         });
-
-
-//                        usrRF.addValueEventListener(new ValueEventListener() {
-//                            @Override
-//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                for(DataSnapshot dss : snapshot.getChildren()){
-//                                    String key = dss.getKey();
-//
-//                                    Map<String, Object> updates = new HashMap<String, Object>();
-//                                    updates.put("profile_url", imgRef);
-//                                    usrRF.child(key).updateChildren(updates);
-//
-//                                }
-//                            }
-//
-//                            @Override
-//                            public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_LONG).show();
-//                            }
-//                        });
 
                     }
                 });
@@ -282,51 +308,6 @@ public class User_Profile extends AppCompatActivity {
                     Log.d(TAG, error.getMessage());
                 }
             });
-
-
-//        usrRF.addValueEventListener(new ValueEventListener() {
-//
-//            String fullName, userName, userName2, eMail, phoneNum, catG, paSS;
-//
-//
-//
-//            @Override
-//            public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-//                for (DataSnapshot keyid : snapshot.getChildren()){
-//
-//
-//
-//                    if(keyid.child("email").getValue().equals(email_i)){
-//                        fullName = keyid.child("fname").getValue(String.class);
-//                        userName = keyid.child("uname").getValue(String.class);
-//                        userName2 = keyid.child("uname").getValue(String.class);
-//                        eMail = keyid.child("email").getValue(String.class);
-//                        phoneNum = keyid.child("pnumber").getValue(String.class);
-//                        catG = keyid.child("spin").getValue(String.class);
-//                        paSS = keyid.child("pword").getValue(String.class);
-//                        imgRef = keyid.child("profile_url").getValue(String.class);
-//
-//
-//                        full_name.setText(fullName);
-//                        user_name.setText(userName);
-//                        user_name2.setText(userName2);
-//                        email.setText(eMail);
-//                        phone_num.setText(phoneNum);
-//                        category.setText(catG);
-//                        pass.setText(paSS);
-//
-//                        Picasso.get().load(imgRef).fit().into(profPic);
-//
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
-//
-//            }
-//        });
 
     }
 

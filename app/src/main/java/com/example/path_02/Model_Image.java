@@ -2,21 +2,14 @@ package com.example.path_02;
 
 public class Model_Image {
 
-    String image_url, caption;
+
+    String caption, images;
 
     public Model_Image(){}
 
-    public Model_Image(String image_url, String caption) {
-        this.image_url = image_url;
+    public Model_Image(String caption, String images) {
         this.caption = caption;
-    }
-
-    public String getImage_url() {
-        return image_url;
-    }
-
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+        this.images = images;
     }
 
     public String getCaption() {
@@ -25,5 +18,13 @@ public class Model_Image {
 
     public void setCaption(String caption) {
         this.caption = caption;
+    }
+
+    public String getImages() {
+        return images;
+    }
+
+    public void setImages(String images) {
+        this.images = images;
     }
 }

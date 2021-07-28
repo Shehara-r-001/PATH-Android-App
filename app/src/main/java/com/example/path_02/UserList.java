@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -15,11 +17,13 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 //import com.firebase.ui.database.FirebaseRecyclerAdapter;
 //import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -44,7 +48,6 @@ public class UserList extends AppCompatActivity {
     String uid;
 
     Button anC, bt, dec, fd;
-
 
 
     @Override
@@ -89,53 +92,24 @@ public class UserList extends AppCompatActivity {
         });
 
 
-//        try {
-//            anC.setOnClickListener(new View.OnClickListener() {
+//
+//            ImageView search = (ImageView) findViewById(R.id.search_img_icon);
+//            search.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {
 //
-//                    reference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-//                            for (DataSnapshot keyA : snapshot.getChildren()) {
-//                                if (keyA.child("spin").getValue().equals("Arts n Crafts")) {
-//                                    Helper helper = keyA.getValue(Helper.class);
-//                                    list.add(helper);
-//                                    startActivity(new Intent(UserList.this, UserList.class));
-//                                }
-//                            }
-//                        }
+//                    String searchTxt = searchField.getText().toString();
 //
-//                        @Override
-//                        public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
-//
-//                        }
-//                    });
-//
+//                    UserSearch(searchTxt);
 //                }
-//
 //            });
-//        }catch (Exception e){
-//            Toast.makeText(getApplicationContext(), "Noooooooooooo", Toast.LENGTH_LONG).show();
-//        }
-
-
-
-            ImageView search = (ImageView) findViewById(R.id.search_img_icon);
-            search.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    String searchTxt = searchField.getText().toString();
-
-                    UserSearch(searchTxt);
-                }
-            });
 
             anC = (Button) findViewById(R.id.anc_button);
             bt = (Button) findViewById(R.id.beauty_button);
             dec = (Button) findViewById(R.id.decos_button);
             fd = (Button) findViewById(R.id.foods_button);
+
+
 
 
         }
@@ -159,31 +133,31 @@ public class UserList extends AppCompatActivity {
         }
 
 
-    private void UserSearch(String searchTxt) {
-
-        Query searchQuery = reference.orderByChild("spin").startAt(searchTxt).endAt(searchTxt + "\uf8ff");
-        
-
-        searchQuery.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
-                    for (DataSnapshot dat : snapshot.getChildren()) {
-                        Helper helper = dat.getValue(Helper.class);
-
-                        list.add(helper);
-
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
+//    private void UserSearch(String searchTxt) {
+//
+//        Query searchQuery = reference.orderByChild("spin").startAt(searchTxt).endAt(searchTxt + "\uf8ff");
+//
+//
+//        searchQuery.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
+//                    for (DataSnapshot dat : snapshot.getChildren()) {
+//                        Helper helper = dat.getValue(Helper.class);
+//
+//                        list.add(helper);
+//
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
 
 
 
