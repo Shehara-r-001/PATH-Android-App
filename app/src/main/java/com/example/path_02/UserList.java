@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -67,21 +69,25 @@ public class UserList extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        searchField = findViewById(R.id.search_field);
+        //searchField = findViewById(R.id.search_field);
 
         list = new ArrayList<>();
         adapter = new Adapter(this, list);
         recyclerView.setAdapter(adapter);
 
+
         user_ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
                 for (DataSnapshot key : snapshot.getChildren()) {
+                    if( key.child("spin").getValue().toString().equals("Arts n Crafts")) {
 
-                    Helper helper = key.getValue(Helper.class);
-                    list.add(helper);
+                        Helper helper = key.getValue(Helper.class);
+                        list.add(helper);
 
-                    adapter.notifyDataSetChanged();
+                        adapter.notifyDataSetChanged();
+                    }
+
                 }
             }
 
@@ -91,78 +97,151 @@ public class UserList extends AppCompatActivity {
             }
         });
 
+        TextView see_all_anc = findViewById(R.id.see_more_anc);
+        see_all_anc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UserList.this, See_More.class);
+                String anc = "Arts n Crafts";
+                i.putExtra("type", anc);
+                startActivity(i);
 
-//
-//            ImageView search = (ImageView) findViewById(R.id.search_img_icon);
-//            search.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                    String searchTxt = searchField.getText().toString();
-//
-//                    UserSearch(searchTxt);
-//                }
-//            });
+            }
+        });
 
-            anC = (Button) findViewById(R.id.anc_button);
-            bt = (Button) findViewById(R.id.beauty_button);
-            dec = (Button) findViewById(R.id.decos_button);
-            fd = (Button) findViewById(R.id.foods_button);
+        ArrayList<Helper> list_b = new ArrayList<>();
+        Adapter adapter_b = new Adapter(this, list_b);
+        RecyclerView recycler_b = findViewById(R.id.User_list_beauty);
+        recycler_b.setHasFixedSize(true);
+        recycler_b.setLayoutManager(new LinearLayoutManager(this));
+        recycler_b.setAdapter(adapter_b);
 
+        user_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
+                for (DataSnapshot key : snapshot.getChildren()) {
+                    if( key.child("spin").getValue().toString().equals("Beauty")) {
 
+                        Helper helper = key.getValue(Helper.class);
+                        list_b.add(helper);
 
+                        adapter_b.notifyDataSetChanged();
+                    }
 
-        }
-        public class UserViewHolder extends RecyclerView.ViewHolder{
-
-            View mView;
-            public UserViewHolder(@NonNull View itemView) {
-                super(itemView);
-                mView = itemView;
+                }
             }
 
-            public void setDetails( String fullname, String categ, String prof){
-                TextView full_name = (TextView) findViewById(R.id.username_view);
-                TextView category = (TextView) findViewById(R.id.category_view);
-                ImageView profile = (ImageView) findViewById(R.id.userimage);
+            @Override
+            public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
 
-                full_name.setText(fullname);
-                category.setText(categ);
-                Picasso.get().load(prof).fit().into(profile);
             }
-        }
+        });
+
+        TextView see_all_beu = findViewById(R.id.see_more_beauty);
+        see_all_beu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UserList.this, See_More.class);
+                String beauty = "Beauty";
+                i.putExtra("type", beauty);
+                startActivity(i);
+
+            }
+        });
 
 
-//    private void UserSearch(String searchTxt) {
-//
-//        Query searchQuery = reference.orderByChild("spin").startAt(searchTxt).endAt(searchTxt + "\uf8ff");
-//
-//
-//        searchQuery.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
-//                    for (DataSnapshot dat : snapshot.getChildren()) {
-//                        Helper helper = dat.getValue(Helper.class);
-//
-//                        list.add(helper);
-//
-//                        adapter.notifyDataSetChanged();
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
+        ArrayList<Helper> list_d = new ArrayList<>();
+        Adapter adapter_d = new Adapter(this, list_d);
+        RecyclerView recycler_d = findViewById(R.id.User_list_decos);
+        recycler_d.setHasFixedSize(true);
+        recycler_d.setLayoutManager(new LinearLayoutManager(this));
+        recycler_d.setAdapter(adapter_d);
+
+        user_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
+                for (DataSnapshot key : snapshot.getChildren()) {
+                    if( key.child("spin").getValue().toString().equals("Decorations")) {
+
+                        Helper helper = key.getValue(Helper.class);
+                        list_d.add(helper);
+
+                        adapter_d.notifyDataSetChanged();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
+
+            }
+        });
+
+        TextView see_all_deco = findViewById(R.id.see_more_decos);
+        see_all_deco.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UserList.this, See_More.class);
+                String deco = "Decorations";
+                i.putExtra("type", deco);
+                startActivity(i);
+
+            }
+        });
+
+
+        ArrayList<Helper> list_f = new ArrayList<>();
+        Adapter adapter_f = new Adapter(this, list_f);
+        RecyclerView recycler_f = findViewById(R.id.User_list_decos);
+        recycler_f.setHasFixedSize(true);
+        recycler_f.setLayoutManager(new LinearLayoutManager(this));
+        recycler_f.setAdapter(adapter_f);
+
+        user_ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
+                for (DataSnapshot key : snapshot.getChildren()) {
+                    if( key.child("spin").getValue().toString().equals("Decorations")) {
+
+                        Helper helper = key.getValue(Helper.class);
+                        list_f.add(helper);
+
+                        adapter_f.notifyDataSetChanged();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
+
+            }
+        });
+
+        TextView see_all_food = findViewById(R.id.see_more_food);
+        see_all_food.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(UserList.this, See_More.class);
+                String food = "Food";
+                i.putExtra("type", food);
+                startActivity(i);
+
+            }
+        });
+
+
+
+//        anC = (Button) findViewById(R.id.anc_button);
+//        bt = (Button) findViewById(R.id.beauty_button);
+//        dec = (Button) findViewById(R.id.decos_button);
+//        fd = (Button) findViewById(R.id.foods_button);
 
 
 
 
-
+    }
 
 
 

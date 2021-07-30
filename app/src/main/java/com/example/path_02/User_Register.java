@@ -130,44 +130,48 @@ public class User_Register extends AppCompatActivity {
                     String re_p_word = reg_Rpword.getEditText().getText().toString();
                     String catg_spinner = spinner.getSelectedItem().toString();
 
-                    uID = auth.getCurrentUser().getUid();
+                    //uID = auth.getCurrentUser().getUid();
 
                     helper = new Helper(f_name, u_name, e_mail, p_num, p_word, re_p_word, catg_spinner, prof_url, uID);
 
 
-                            if (p_word.equals(re_p_word)) {
+                    if ( !catg_spinner.equals("Select")) {
+                        if (p_word.equals(re_p_word)) {
 
-                                auth.createUserWithEmailAndPassword(e_mail, p_word).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                                    @Override
-                                    public void onComplete(@NonNull /*@org.jetbrains.annotations.NotNull*/ Task<AuthResult> task) {
-                                        if(task.isSuccessful()){
+                            auth.createUserWithEmailAndPassword(e_mail, p_word).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull /*@org.jetbrains.annotations.NotNull*/ Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
 
-                                            FirebaseUser user = auth.getCurrentUser();
-                                            String userID = user.getUid();
-                                            reference.child(userID).setValue(helper);
-                                            //updateUI(user);
-                                            finish();
+                                        FirebaseUser user = auth.getCurrentUser();
+                                        String userID = user.getUid();
+                                        reference.child(userID).setValue(helper);
+                                        //updateUI(user);
+                                        finish();
 
-                                            startActivity(new Intent(User_Register.this, Login.class));
-                                            Toast.makeText(getApplicationContext(), "User has been created successfully.", Toast.LENGTH_SHORT).show();
-                                            //finish();
+                                        startActivity(new Intent(User_Register.this, Login.class));
+                                        Toast.makeText(getApplicationContext(), "User has been created successfully.", Toast.LENGTH_SHORT).show();
+                                        //finish();
 
-                                        }
-                                        else{
-                                            Toast.makeText(getApplicationContext(), "Error..!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                            return;
-                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Error..!" + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                        return;
                                     }
+                                }
 
-                                });
+                            });
 
 
-
-                            } else {
-                                progressBar.setVisibility(View.GONE);
-                                Toast.makeText(getApplicationContext(), "Your passwords are not matching..!", Toast.LENGTH_LONG).show();
-                                return;
-                            }
+                        } else {
+                            progressBar.setVisibility(View.GONE);
+                            Toast.makeText(getApplicationContext(), "Your passwords are not matching..!", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+                    }
+                    else{
+                        progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Please select a category", Toast.LENGTH_LONG).show();
+                    }
                 }
 
 

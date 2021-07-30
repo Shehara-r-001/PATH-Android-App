@@ -1,74 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    tools:context=".UserList">
+    tools:context=".UserList"
+    android:paddingVertical="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="5dp">
 
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@mipmap/ic_launcher"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
-
-        <Button
-            android:id="@+id/anc_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Arts n Crafts"
-            android:textColor="@color/white"
-            android:fontFamily="@font/alegreya"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/search_image"/>
-        <Button
-            android:id="@+id/beauty_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Beauty"
-            android:textColor="@color/white"
-            android:fontFamily="@font/alegreya"
-            android:layout_marginLeft="5dp"
-            android:background="@drawable/search_image"/>
-
-    </LinearLayout>
+        android:src="@drawable/path_pink"
+        android:layout_marginLeft="10dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="5dp">
+        android:padding="5dp"
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/decos_button"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/text_in_cats_anc"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Decorations"
-            android:textColor="@color/white"
+            android:text="Arts &amp; Crafts"
+            android:background="@drawable/black_outline_bg"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
             android:fontFamily="@font/alegreya"
-            android:layout_marginRight="5dp"
-            android:background="@drawable/search_image"/>
-        <Button
-            android:id="@+id/foods_button"
-            android:layout_width="0dp"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Foods"
-            android:textColor="@color/white"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/User_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/see_more_anc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="see more.."
             android:fontFamily="@font/alegreya"
-            android:background="@drawable/search_image"
-            android:layout_marginLeft="5dp"/>
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 
@@ -76,41 +72,141 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/search_field"
-            android:layout_width="320dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:hint="Search here.."
-            android:inputType="text"
-            android:background="@drawable/search_image"
-            android:textSize="20sp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Beauty"
+            android:background="@drawable/black_outline_bg"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/alegreya"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/User_list_beauty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/see_more_beauty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="see more.."
             android:fontFamily="@font/alegreya"
             android:textColor="@color/black"
-            android:padding="10dp"/>
+            android:textSize="20sp"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"/>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/search_icon_card"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:cardCornerRadius="40dp"
-            android:foregroundGravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp">
-            <ImageView
-                android:id="@+id/search_img_icon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/search_i"/>
-        </androidx.cardview.widget.CardView>
     </LinearLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/User_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decorations"
+            android:background="@drawable/black_outline_bg"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="5dp"
+            android:fontFamily="@font/alegreya"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/User_list_decos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/see_more_decos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="see more.."
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:gravity="right"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"/>
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Food"
+                android:background="@drawable/black_outline_bg"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="5dp"
+                android:fontFamily="@font/alegreya"
+                android:textSize="25sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/User_list_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/see_more_food"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="see more.."
+                android:fontFamily="@font/alegreya"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:gravity="right"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -21,6 +21,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     Context context;
     ArrayList<Helper> list;
+    private final int limit = 2;
 
     //String prof_img;
 
@@ -60,7 +61,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     @Override
     public int getItemCount() {
-        return list.size();
+
+        if ( list.size() > limit){
+            return limit;
+        }
+        else {
+            return list.size();
+        }
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
