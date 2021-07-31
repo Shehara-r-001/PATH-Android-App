@@ -2,6 +2,8 @@ package com.example.path_02;
 
 import android.widget.ImageView;
 
+import java.io.Serializable;
+
 public class Helper {
 
     String fname, uname, email, pnumber, pword, rePword, spin, profile_url, uid;

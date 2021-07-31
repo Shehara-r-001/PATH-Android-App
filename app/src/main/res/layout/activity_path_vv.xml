@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PATH_vv"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/path_green"
+        android:layout_marginLeft="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/black_outline_bg">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/user_card_pvv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:cardCornerRadius="60dp"
+            android:layout_marginBottom="10dp"
+            android:foregroundGravity="center_vertical"
+            android:layout_marginLeft="20dp"
+            android:layout_centerInParent="true">
+
+            <ImageView
+                android:id="@+id/userimage_pvv"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/path_logo_splash"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/name_author_path"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name of the author"
+        android:fontFamily="@font/alegreya"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/user_card_pvv"
+        android:gravity="center_horizontal"/>
+
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/name_author_path"
+        android:text="Achivements so far.."
+        android:fontFamily="@font/alegreya"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="15dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_path_vv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"/>
+
+
+</LinearLayout>

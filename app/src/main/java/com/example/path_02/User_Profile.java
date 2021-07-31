@@ -117,6 +117,8 @@ public class User_Profile extends AppCompatActivity {
 
 
 
+
+
         final StorageReference profref = storageReference.child("users/"+ mAuth.getCurrentUser().getUid() +"/profile.jpg");
         profref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override

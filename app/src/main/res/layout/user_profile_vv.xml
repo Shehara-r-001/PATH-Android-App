@@ -163,11 +163,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp">
-            <ScrollView
-                android:id="@+id/images_collection"
-                android:layout_width="match_parent"
-                android:layout_height="400dp"
-                android:fillViewport="true"></ScrollView></LinearLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/image_grid_vv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+
+
+        </LinearLayout>
 
 
     </LinearLayout>

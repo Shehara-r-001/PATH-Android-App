@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +24,9 @@ public class See_More extends AppCompatActivity {
     RecyclerView recyclerView;
     DatabaseReference reference, user_ref;
     ArrayList<Helper> arrList;
-    Adapter adapterNL;
-    FirebaseAuth auth;
+    Adapter_NoLimit adapterNL;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +41,13 @@ public class See_More extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         arrList = new ArrayList<>();
-        adapterNL = new Adapter(this, arrList);
+        adapterNL = new Adapter_NoLimit(this, arrList);
         recyclerView.setAdapter(adapterNL);
 
         String type = getIntent().getStringExtra("type");
+
+
+
 
         user_ref.addValueEventListener(new ValueEventListener() {
             @Override

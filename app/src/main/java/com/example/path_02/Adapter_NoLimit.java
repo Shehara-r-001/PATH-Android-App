@@ -2,11 +2,13 @@ package com.example.path_02;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,9 +22,11 @@ public class Adapter_NoLimit extends RecyclerView.Adapter<Adapter_NoLimit.LViewH
     Context context;
     ArrayList<Helper> list_nl;
 
+
     public Adapter_NoLimit(Context context, ArrayList<Helper> list_nl) {
         this.context = context;
         this.list_nl = list_nl;
+
     }
 
     @NonNull
@@ -36,12 +40,22 @@ public class Adapter_NoLimit extends RecyclerView.Adapter<Adapter_NoLimit.LViewH
     @Override
     public void onBindViewHolder(@NonNull Adapter_NoLimit.LViewHolder holder, int position) {
 
+        //final Helper temp = list_nl.get(position);
+
         String fname_txt = list_nl.get(position).getFname();
         String catg_txt = list_nl.get(position).getSpin();
         String prof_img = list_nl.get(position).getProfile_url();
 
         holder.setUsers(fname_txt, catg_txt, prof_img);
 
+        holder.f_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, UserProfile_VV.class);
+                i.putExtra("full name", fname_txt);
+                context.startActivity(i);
+            }
+        });
     }
 
     @Override
@@ -49,7 +63,9 @@ public class Adapter_NoLimit extends RecyclerView.Adapter<Adapter_NoLimit.LViewH
         return list_nl.size();
     }
 
-    public class LViewHolder extends RecyclerView.ViewHolder {
+
+
+    public class LViewHolder extends RecyclerView.ViewHolder{
 
         private TextView f_name, catG;
         private ImageView profile_pic;
@@ -60,6 +76,8 @@ public class Adapter_NoLimit extends RecyclerView.Adapter<Adapter_NoLimit.LViewH
             f_name = itemView.findViewById(R.id.username_view);
             catG = itemView.findViewById(R.id.category_view);
             profile_pic = itemView.findViewById(R.id.userimage);
+
+
         }
 
         public void setUsers(String fname_txt, String catg_txt, String prof_img) {
@@ -67,5 +85,7 @@ public class Adapter_NoLimit extends RecyclerView.Adapter<Adapter_NoLimit.LViewH
             catG.setText(catg_txt);
             Picasso.get().load(prof_img).fit().into(profile_pic);
         }
+
+
     }
 }
