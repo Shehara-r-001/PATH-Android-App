@@ -130,49 +130,6 @@ public class Login extends AppCompatActivity {
 
                     progressBar.setVisibility(View.GONE);
 
-//                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("users");
-//
-//                    reference.addValueEventListener(new ValueEventListener() {
-//                        @Override
-//                        public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
-//                            for(DataSnapshot ds: snapshot.getChildren()){
-//                                if(ds.child("email").equals(eMail)){
-//                                    String fnameDB = ds.child("fname").getValue(String.class);
-//                                    String unameDB = ds.child("uname").getValue(String.class);
-//                                    String emailDB = ds.child("email").getValue(String.class);
-//                                    String passwordDB = ds.child("pword").getValue(String.class);
-//                                    String pnumDB = ds.child("pnumber").getValue(String.class);
-//                                    String spinDB = ds.child("spin").getValue(String.class);
-
-
-
-
-//                                    intent.putExtra("fname", fnameDB);
-//                                    intent.putExtra("uname", unameDB);
-//                                    intent.putExtra("email", emailDB);
-//                                    intent.putExtra("pword", passwordDB);
-//                                    intent.putExtra("pnumber", pnumDB);
-//                                    intent.putExtra("spin", spinDB);
-//
-//                                }
-//                                else{
-//
-//                                }
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onCancelled(@NonNull /*@org.jetbrains.annotations.NotNull*/ DatabaseError error) {
-//
-//                        }
-//                    });
-
-
-
-//
-//
-//                    Query user_check = reference.orderByChild("uname");
-
 
 
                 }
@@ -187,9 +144,8 @@ public class Login extends AppCompatActivity {
     public void updateUI(String user_id){
 
         Intent intent = new Intent(Login.this, User_Profile.class);
-        //intent.putExtra("email", user.);
-//        Log.v("Data", currentUser.getUid());
         startActivity(intent);
+
     }
 
 

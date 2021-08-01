@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="600dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/dark_blue">
+
+
+    <ImageView
+        android:id="@+id/cancel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/cancel"
+        android:layout_gravity="right"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/pink_path_dark_bg"
+        android:layout_marginLeft="10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/name_field_v"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:counterTextColor="@color/white"
+            app:boxBackgroundColor="@color/white"
+            android:hint="Enter Your Name.."
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:fontFamily="@font/alegreya">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mobile_field_v"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:counterTextColor="@color/white"
+            app:boxBackgroundColor="@color/white"
+            android:hint="Enter Your Contact number.."
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:fontFamily="@font/alegreya">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/message_field_v"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            app:counterTextColor="@color/white"
+            app:boxBackgroundColor="@color/white"
+            android:hint="Type a brief message ( Optional )"
+            android:textColorHint="@color/black"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/black"
+                android:fontFamily="@font/alegreya">
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*Maximum 150 characters allowed.."
+            android:fontFamily="@font/alegreya"
+            android:layout_marginTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:layout_marginLeft="15dp"/>
+
+        <TextView
+            android:id="@+id/send_req"
+            android:layout_width="250dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="50dp"
+            android:background="@drawable/white_outline"
+            android:gravity="center"
+            android:text="SEND"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:clickable="true"
+            android:layout_marginTop="40dp"/>
+
+        <ProgressBar
+            android:id="@+id/progressBar_req"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center|bottom"
+            android:layout_marginBottom="20dp"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

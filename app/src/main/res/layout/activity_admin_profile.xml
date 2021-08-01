@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin_Profile"
+    android:background="@color/dark_blue">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_prof_admin"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cardCornerRadius="80dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="60dp">
+
+            <ImageView
+                android:id="@+id/admin_profile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/pink_path_dark_bg"/>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/admin_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:id="@+id/pending_req_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Requests"
+            android:background="@drawable/white_outline"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="50dp"
+            android:paddingVertical="5dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:id="@+id/pending_img_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Images"
+            android:background="@drawable/white_outline"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:paddingVertical="5dp"
+            android:layout_marginHorizontal="10dp"/>
+
+        <TextView
+            android:id="@+id/logout_admin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="LOGOUT"
+            android:background="@drawable/white_outline"
+            android:fontFamily="@font/alegreya"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="100dp"
+            android:paddingVertical="5dp"
+            android:layout_marginHorizontal="10dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

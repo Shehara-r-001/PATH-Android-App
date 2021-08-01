@@ -35,9 +35,12 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class User_Profile extends AppCompatActivity {
 
@@ -57,6 +60,8 @@ public class User_Profile extends AppCompatActivity {
     ArrayList<Model_Image> arrayList;
     Image_Adapter image_adapter;
 
+    int delay = 3000;
+
 
     String userNAME, eMAIL, pWORD, pNUM, url, imgRef;
 
@@ -70,6 +75,7 @@ public class User_Profile extends AppCompatActivity {
         else if (mAuth.getCurrentUser() == null){
             startActivity(new Intent(User_Profile.this, Login.class));
         }
+
     }
 
     @Override
@@ -79,8 +85,25 @@ public class User_Profile extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.user_profile_userview);
 
-        //FirebaseAuth mAuth;
         mAuth = FirebaseAuth.getInstance();
+
+        String user_id = mAuth.getCurrentUser().getUid();
+        if(user_id.equals("CklLi0wcswgsIxj5ewN22n8nnF62")){
+
+            Toast.makeText(getApplicationContext(), "You will be redirected to admin profile shortly", Toast.LENGTH_LONG).show();
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    finish();
+                    startActivity(new Intent(User_Profile.this, Admin_Profile.class));
+                }
+            }, delay);
+        }
+
+
+        //FirebaseAuth mAuth;
+
 
         reference = FirebaseDatabase.getInstance().getReference();
         usrRF = reference.child("users");

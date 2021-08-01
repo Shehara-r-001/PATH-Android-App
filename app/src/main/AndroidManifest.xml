@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PATH_02">
-        <activity android:name=".PATH_vv"></activity>
+        <activity android:name=".Request_List"></activity>
+        <activity android:name=".Admin_Profile" />
+        <activity android:name=".Request" />
+        <activity android:name=".PATH_vv" />
         <activity android:name=".See_More" />
         <activity android:name=".Add_Image" />
         <activity android:name=".UserProfile_VV" />
