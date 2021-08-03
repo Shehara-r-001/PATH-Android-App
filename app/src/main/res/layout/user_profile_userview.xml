@@ -39,7 +39,7 @@
             android:id="@+id/prof_page_fullname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shehara Ranathisara"
+            android:text="Full Name"
             android:layout_below="@+id/prof_pic_card"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/alegreya"
@@ -51,7 +51,7 @@
             android:id="@+id/prof_page_uname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Shehara_r"
+            android:text="User Name"
             android:layout_below="@+id/prof_page_fullname"
             android:layout_centerHorizontal="true"
             android:fontFamily="@font/alegreya"
@@ -68,6 +68,17 @@
             android:fontFamily="@font/alegreya"
             android:textColor="@color/black"
             android:textSize="15sp"/>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/requests_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/inbox"
+            android:contentDescription="Requests"/>
 
 
     </RelativeLayout>
@@ -265,6 +276,7 @@
             android:layout_marginTop="10dp"/>
 
     </LinearLayout>
+
 
         <Button
             android:id="@+id/logout"

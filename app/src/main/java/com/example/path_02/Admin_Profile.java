@@ -26,7 +26,7 @@ public class Admin_Profile extends AppCompatActivity {
     ImageView profile;
     DatabaseReference reference, user_reference;
     FirebaseAuth auth;
-    String user_id, admin_name, url;
+    String user_id, admin_name, url;   //0711363579
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

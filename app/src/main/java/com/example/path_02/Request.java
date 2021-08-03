@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,7 +37,7 @@ public class Request extends AppCompatActivity {
     TextView cancel;
     SimpleDateFormat time;
 
-    String f_name, m_num, msg, uid;
+    String f_name, m_num, msg, uid, sender_fullname;
     ProgressBar progressBar;
 
     DatabaseReference reference, user_reference;
@@ -63,6 +64,7 @@ public class Request extends AppCompatActivity {
         uid = auth.getCurrentUser().getUid();
 
 
+
             send.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
@@ -76,12 +78,30 @@ public class Request extends AppCompatActivity {
                         f_name = fullname.getEditText().getText().toString();
                         m_num = mobile.getEditText().getText().toString();
                         msg = message.getEditText().getText().toString();
+                        //sender_auth_id = auth.getCurrentUser().getUid();
 
 
                         String creator = getIntent().getStringExtra("creator");
 
                         time = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
                         Date date = new Date();
+
+
+//                        user_reference.addValueEventListener(new ValueEventListener() {
+//                            @Override
+//                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//                                if (snapshot.getKey().equals(uid)){
+//                                    sender_fullname = snapshot.child("fname").getValue().toString();
+//                                }
+//
+//                            }
+//
+//                            @Override
+//                            public void onCancelled(@NonNull DatabaseError error) {
+//
+//                            }
+//                        });
 
 
                                         final String key = reference.push().getKey();
@@ -97,6 +117,8 @@ public class Request extends AppCompatActivity {
                                             @Override
                                             public void onSuccess(Void unused) {
                                                 Toast.makeText(getApplicationContext(), "Request has been sent", Toast.LENGTH_LONG).show();
+
+
 
                                                 //progressBar.setVisibility(View.GONE);
                                                 startActivity(new Intent(Request.this, UserProfile_VV.class));
