@@ -9,13 +9,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class Frag_Received extends Fragment {
+public class Frag_Pending extends Fragment {
+
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.frag__received, container, false);
+        return inflater.inflate(R.layout.frag__pending, container, false);
     }
 }

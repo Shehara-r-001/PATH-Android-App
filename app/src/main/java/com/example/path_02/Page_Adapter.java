@@ -1,44 +1,43 @@
 package com.example.path_02;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentPagerAdapter;
 
-public class Page_Adapter extends FragmentStatePagerAdapter {
+import java.util.ArrayList;
 
-    int tab;
+public class Page_Adapter extends FragmentPagerAdapter {
 
-    public Page_Adapter(@NonNull FragmentManager fm, int tab) {
-        super(fm);
-        this.tab = tab;
+    private ArrayList<Fragment> fragmentArrayList = new ArrayList<>();
+    private  final ArrayList<String> fragmentTitle = new ArrayList<>();
+
+
+    public Page_Adapter(@NonNull FragmentManager fm, int behavior) {
+        super(fm, behavior);
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-
-        switch (position){
-
-            case 1 :
-                Frag_pending frag_pending = new Frag_pending();
-                return frag_pending;
-
-                case 2 :
-                Frag_Sent frag_sent = new Frag_Sent();
-                return frag_sent;
-
-                case 3 :
-                Frag_Received frag_received = new Frag_Received();
-                return frag_received;
-
-            default: return null;
-        }
-
+        return fragmentArrayList.get(position);
     }
 
     @Override
     public int getCount() {
-        return tab;
+        return fragmentArrayList.size();
+    }
+
+    public void AddFragment( Fragment fragment, String title){
+
+        fragmentArrayList.add(fragment);
+        fragmentTitle.add(title);
+    }
+
+    @Nullable
+    @Override
+    public CharSequence getPageTitle(int position){
+        return fragmentTitle.get(position);
     }
 }
