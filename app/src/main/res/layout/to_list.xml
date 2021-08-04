@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/receiver_name_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Receiver name"
+                android:fontFamily="@font/alegreya"
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:layout_toRightOf="@id/to"
+                android:layout_marginLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/to"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To : "
+                    android:fontFamily="@font/alegreya"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"/>
+
+            <TextView
+                android:id="@+id/sent_time_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dd/MM/yyyy hh/mm/ss"
+                android:fontFamily="@font/alegreya"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:layout_below="@id/receiver_name_list"
+                android:layout_marginLeft="45dp"/>
+            </RelativeLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>

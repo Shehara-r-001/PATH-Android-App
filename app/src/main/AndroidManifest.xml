@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PATH_02">
-        <activity android:name=".Request_frags"></activity>
+        <activity android:name=".MailInbox"></activity>
+        <activity android:name=".Request_frags" />
         <activity android:name=".Req_view" />
         <activity android:name=".Request_List" />
         <activity android:name=".Admin_Profile" />
