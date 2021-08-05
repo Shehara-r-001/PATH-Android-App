@@ -143,7 +143,7 @@ public class User_Profile extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(User_Profile.this, MailInbox.class));
+                startActivity(new Intent(User_Profile.this, Request_frags.class));
             }
         });
 
