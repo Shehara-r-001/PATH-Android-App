@@ -68,6 +68,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         else {
             return list.size();
         }
+        //return list.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{

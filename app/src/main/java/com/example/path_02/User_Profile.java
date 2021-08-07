@@ -121,7 +121,7 @@ public class User_Profile extends AppCompatActivity {
         image_adapter = new Image_Adapter(this, arrayList);
         recyclerView.setAdapter(image_adapter);
 
-        usrRF.child(mAuth.getCurrentUser().getUid()).child("images").addValueEventListener(new ValueEventListener() {
+        usrRF.child(mAuth.getCurrentUser().getUid()).child("images").child("approved").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 

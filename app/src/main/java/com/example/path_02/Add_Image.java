@@ -79,7 +79,7 @@ public class Add_Image extends AppCompatActivity {
                 updates.put("caption", caption.getEditText().getText().toString());
 //                String test = "okay";
 //                updates.put("test", test);
-                reference.child("users").child(auth.getCurrentUser().getUid()).child("images").child(key).updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
+                reference.child("users").child(auth.getCurrentUser().getUid()).child("images").child("pending").child(key).updateChildren(updates).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
                         Toast.makeText(getApplicationContext(), "Updated" ,Toast.LENGTH_LONG).show();
@@ -127,7 +127,7 @@ public class Add_Image extends AppCompatActivity {
                         Map<String, Object> update = new HashMap<String, Object>();
                         update.put("images", img_URL);
                         //update.put("caption", cap);
-                        reference.child("users").child(auth.getCurrentUser().getUid()).child("images").child(key).updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        reference.child("users").child(auth.getCurrentUser().getUid()).child("images").child("pending").child(key).updateChildren(update).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(getApplicationContext(), "Updated" ,Toast.LENGTH_LONG).show();

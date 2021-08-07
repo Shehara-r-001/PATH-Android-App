@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -51,9 +52,12 @@ public class Adapter_NoLimit extends RecyclerView.Adapter<Adapter_NoLimit.LViewH
         holder.f_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent i = new Intent(context, UserProfile_VV.class);
                 i.putExtra("full name", fname_txt);
                 context.startActivity(i);
+
             }
         });
     }

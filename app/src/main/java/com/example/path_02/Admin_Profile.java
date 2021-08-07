@@ -79,5 +79,12 @@ public class Admin_Profile extends AppCompatActivity {
             }
         });
 
+        images.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Admin_Profile.this, Image_Pending.class));
+            }
+        });
+
     }
 }
