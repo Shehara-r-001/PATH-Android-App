@@ -57,6 +57,9 @@ public class User_Profile extends AppCompatActivity {
     String email_i, try_url, uid;
     FirebaseUser usr;
 
+    String fullName, userName, userName2, eMail, phoneNum, catG, paSS;
+
+
     RecyclerView recyclerView;
     ArrayList<Model_Image> arrayList;
     Image_Adapter image_adapter;
@@ -192,6 +195,22 @@ public class User_Profile extends AppCompatActivity {
             }
         });
 
+        Button updt = findViewById(R.id.profile_update);
+        updt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(User_Profile.this, Update_Prof.class);
+
+                i.putExtra("existing full name", fullName);
+                i.putExtra("existing user name", userNAME);
+                i.putExtra("existing email", eMAIL);
+                i.putExtra("existing password", paSS);
+
+                startActivity(i);
+
+            }
+        });
+
 
 
         TextView change_prof = (TextView) findViewById(R.id.update_prof);
@@ -307,7 +326,6 @@ public class User_Profile extends AppCompatActivity {
 
             usrRF.child(mAuth.getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
                 //should be usrRF
-                String fullName, userName, userName2, eMail, phoneNum, catG, paSS;
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PATH_02">
-        <activity android:name=".Image_Pending"></activity>
+        <activity android:name=".Image_Full_Admin"></activity>
+        <activity android:name=".Admin_Image_Approval" />
+        <activity android:name=".Update_Prof" />
+        <activity android:name=".Image_Pending" />
         <activity android:name=".Users_Fragments" />
         <activity android:name=".MailInbox" />
         <activity android:name=".Request_frags" />

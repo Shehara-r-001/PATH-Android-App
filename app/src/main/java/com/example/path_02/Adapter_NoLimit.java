@@ -53,7 +53,6 @@ public class Adapter_NoLimit extends RecyclerView.Adapter<Adapter_NoLimit.LViewH
             @Override
             public void onClick(View v) {
 
-
                 Intent i = new Intent(context, UserProfile_VV.class);
                 i.putExtra("full name", fname_txt);
                 context.startActivity(i);
