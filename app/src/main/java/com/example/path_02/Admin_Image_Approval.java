@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class Admin_Image_Approval extends AppCompatActivity {
 
-    Image_Adapter image_adapter;
+    //Image_Adapter image_adapter;
     Image_Adapter_Admin image_adapter_admin;
     ArrayList<Model_Image> arrayList;
     RecyclerView recyclerView;
@@ -58,6 +58,8 @@ public class Admin_Image_Approval extends AppCompatActivity {
                          arrayList.add(model_image);
 
                          image_adapter_admin.notifyDataSetChanged();
+
+
                      }
                 }
             }

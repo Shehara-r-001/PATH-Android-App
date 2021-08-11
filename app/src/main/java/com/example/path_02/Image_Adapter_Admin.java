@@ -19,7 +19,6 @@ public class Image_Adapter_Admin extends RecyclerView.Adapter<Image_Adapter_Admi
 
     Context context;
     ArrayList<Model_Image> arrayList;
-    String address, caption;
 
 
     public Image_Adapter_Admin(Context context, ArrayList<Model_Image> arrayList) {
@@ -37,8 +36,8 @@ public class Image_Adapter_Admin extends RecyclerView.Adapter<Image_Adapter_Admi
     @Override
     public void onBindViewHolder(@NonNull IAViewHolder holder, int position) {
 
-         address = arrayList.get(position).getImages();
-         caption = arrayList.get(position).getCaption();
+         String address = arrayList.get(position).getImages();
+         String caption = arrayList.get(position).getCaption();
 
         holder.setIMG(address, caption);
 
