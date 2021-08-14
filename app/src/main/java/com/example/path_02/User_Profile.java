@@ -124,7 +124,7 @@ public class User_Profile extends AppCompatActivity {
         image_adapter = new Image_Adapter(this, arrayList);
         recyclerView.setAdapter(image_adapter);
 
-        usrRF.child(mAuth.getCurrentUser().getUid()).child("images").child("approved").addValueEventListener(new ValueEventListener() {
+        usrRF.child(mAuth.getCurrentUser().getUid()).child("app_images").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
@@ -150,7 +150,13 @@ public class User_Profile extends AppCompatActivity {
             }
         });
 
-
+        FloatingActionButton war = findViewById(R.id.warning_fab);
+        war.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(User_Profile.this, Warning_rec.class));
+            }
+        });
 
 
 

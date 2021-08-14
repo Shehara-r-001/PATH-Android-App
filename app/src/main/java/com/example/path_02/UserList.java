@@ -193,7 +193,7 @@ public class UserList extends AppCompatActivity {
 
         ArrayList<Helper> list_f = new ArrayList<>();
         Adapter adapter_f = new Adapter(this, list_f);
-        RecyclerView recycler_f = findViewById(R.id.User_list_decos);
+        RecyclerView recycler_f = findViewById(R.id.User_list_food);
         recycler_f.setHasFixedSize(true);
         recycler_f.setLayoutManager(new LinearLayoutManager(this));
         recycler_f.setAdapter(adapter_f);
@@ -202,7 +202,7 @@ public class UserList extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull /*@org.jetbrains.annotations.NotNull*/ DataSnapshot snapshot) {
                 for (DataSnapshot key : snapshot.getChildren()) {
-                    if( key.child("spin").getValue().toString().equals("Decorations")) {
+                    if( key.child("spin").getValue().toString().equals("Foods")) {
 
                         Helper helper = key.getValue(Helper.class);
                         list_f.add(helper);
@@ -224,20 +224,12 @@ public class UserList extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(UserList.this, See_More.class);
-                String food = "Food";
+                String food = "Foods";
                 i.putExtra("type", food);
                 startActivity(i);
 
             }
         });
-
-
-
-//        anC = (Button) findViewById(R.id.anc_button);
-//        bt = (Button) findViewById(R.id.beauty_button);
-//        dec = (Button) findViewById(R.id.decos_button);
-//        fd = (Button) findViewById(R.id.foods_button);
-
 
 
 

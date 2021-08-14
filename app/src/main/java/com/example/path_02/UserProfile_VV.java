@@ -121,7 +121,7 @@ public class UserProfile_VV extends AppCompatActivity {
                 for ( DataSnapshot u : snapshot.getChildren()){
                     if ( u.child("fname").getValue().toString().equals(name)){
 
-                        for ( DataSnapshot i : u.child("images").getChildren()){
+                        for ( DataSnapshot i : u.child("app_images").getChildren()){
                             Model_Image model_image = i.getValue(Model_Image.class);
                             arrayList.add(model_image);
 

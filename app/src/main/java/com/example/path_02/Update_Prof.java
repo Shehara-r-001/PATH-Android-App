@@ -22,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Update_Prof extends AppCompatActivity {    // use a new adapter, id's might give that nulls
+public class Update_Prof extends AppCompatActivity {    // use a new adapter, id's might given that nulls
 
     TextInputLayout full_name, user_name, email, new_pword, new_pword_conf;
     Button update, cancel;

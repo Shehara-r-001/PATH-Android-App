@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PATH_02">
-        <activity android:name=".Image_Full_Admin"></activity>
+        <activity android:name=".Warning_rec"></activity>
+        <activity android:name=".Image_Full_Admin" />
         <activity android:name=".Admin_Image_Approval" />
         <activity android:name=".Update_Prof" />
         <activity android:name=".Image_Pending" />
